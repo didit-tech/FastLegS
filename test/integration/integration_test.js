@@ -1,9 +1,8 @@
-var helper = require('../test_helper.js');
+var helper = require('../test_helper.js')
+  , logging = false;
 
 module.exports = {
   'integrates': function() {
-    var logging = false;
-
     var connParams = {
         user:     'basic_user'
       , password: ''
@@ -220,11 +219,10 @@ module.exports = {
     },
     function(err, result) {
       if (logging) {
-        if (err) {
+        if (err)
           console.log(err);
-        } else {
+        else
           console.log(result);
-        }
       }
       FastLegS.client.disconnect();
     });

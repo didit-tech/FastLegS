@@ -2,20 +2,19 @@
   "name": "FastLegS",
   "version": "0.0.1",
   "description": "PostgreSQL ORM on top of node-postgres",
+  "tags" : ["orm", "pg", "postgres"],
+  "author": "Didit Tech <development@didit.com>",
   "homepage": "https://github.com/didit-tech/FastLegS",
-  "repository" : {
-    "type" : "git",
-    "url" : "git://github.com/didit-tech/FastLegS.git"
+  "dependencies": {
+    "pg": "= 0.2.7",
+    "async": "= 0.1.7",
+    "underscore": "= 1.1.4"
   },
-  "author": "Rob Malko <rmalko@didit.com>",
-  "main": "./index",
-  "directories": {
-    "lib": "./lib"
-  },
-  "scripts": {
-    "test": "make test"
-  },
-  "engines": {
-    "node": ">= 0.2.2"
-  }
+  "main": "index",
+  "scripts": { "test": "make test" },
+  "engines": { "node": ">= 0.2.2" },
+  "licenses" : [{
+      "type" : "MIT"
+    , "url" : "http://github.com/didit-tech/FastLegS/raw/master/LICENSE"
+  }]
 }
