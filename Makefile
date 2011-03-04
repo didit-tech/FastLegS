@@ -5,7 +5,7 @@ node-command := xargs -n 1 -I file expresso file
 test: setup test-unit test-integration
 
 setup:
-	@[ -e ".fastlegz" ] || node test/bootstrap/init.js
+	@[ -e ".fastlegs" ] || node test/bootstrap/init.js
 
 test-unit:
 	@find test/unit -name "*_test.js" | $(node-command)

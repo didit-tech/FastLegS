@@ -66,7 +66,7 @@ async.series({
                 function(cb) { client.query(create.comments_post_id_index, cb); }
               ], function(err, results) {
                 if (!err) {
-                  fs.writeFile('.fastlegz',
+                  fs.writeFile('.fastlegs',
                     JSON.stringify(config),
                   function (err) {
                     client.end();

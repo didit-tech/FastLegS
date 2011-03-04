@@ -4,7 +4,7 @@ var helper = require('../test_helper.js')
 
 module.exports = {
   'integrates': function() {
-    var config = fs.readFileSync(__dirname + '/../../.fastlegz', 'utf8');
+    var config = fs.readFileSync(__dirname + '/../../.fastlegs', 'utf8');
     config = JSON.parse(config);
 
     var connParams = {
@@ -122,14 +122,14 @@ module.exports = {
           callback(err, results);
         });
       },
-      'find: multiple records': function(callback) {
+      'find: multiple comments by id': function(callback) {
         var ids = _.pluck(comments, 'id');
         Comment.find(ids, function(err, results) {
           assert.eql(ids.length, results.length);
           callback(err, results)
         })
       },
-      'find: ignores unknown columns': function(callback) {
+      'find: properly ignores unknown columns': function(callback) {
         Post.find({ 'body': 'Some body 2' }, {
           only: ['id', 'bad_field']
         }, function(err, results) {
@@ -153,25 +153,25 @@ module.exports = {
           callback(err, results);
         });
       },
-      'destroy: model by primary key': function(callback) {
+      'destroy: comment by primary key': function(callback) {
         Comment.destroy(8, function(err, results) {
           assert.eql(1, results);
           callback(err, results);
         });
       },
-      'destroy: multiple records by primary key': function(callback) {
+      'destroy: multiple comments by primary key': function(callback) {
         Comment.destroy([7, 6], function(err, results) {
           assert.eql(2, results);
           callback(err, results);
         });
       },
-      'destroy: by a basic selector': function(callback) {
+      'destroy: comment via a basic selector': function(callback) {
         Comment.destroy({ 'comment':'Comment 5' }, function(err, results) {
           assert.eql(1, results);
           callback(err, results);
         });
       },
-      'destroy: all records for model': function(callback) {
+      'destroy: all comments': function(callback) {
         Comment.destroy(function(err, results) {
           assert.eql(4, results);
           callback(err, results);
@@ -209,14 +209,14 @@ module.exports = {
         });
       },
       'find: nothing': function(callback) {
-        Post.find(posts.id, function(err, result) {
+        Post.find(posts[0].id, function(err, result) {
           assert.isNull(result);
           callback(err, result);
         });
       },
-      'find: no clients with bad selector': function(callback) {
+      'find: no posts with bad selector': function(callback) {
         Post.find({ 'bad_field': 12 }, function(err, result) {
-          assert.eql([1234], result);
+          assert.eql([], result);
           callback(err, result);
         });
       }
