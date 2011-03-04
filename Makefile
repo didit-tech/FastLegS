@@ -2,7 +2,10 @@ SHELL := /bin/bash
 
 node-command := xargs -n 1 -I file expresso file
 
-test: test-unit test-integration
+test: setup test-unit test-integration
+
+setup:
+	@[ -e ".fastlegz" ] || node test/bootstrap.js
 
 test-unit:
 	@find test/unit -name "*_test.js" | $(node-command)
