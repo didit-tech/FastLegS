@@ -13,7 +13,7 @@
   },
   "main": "index",
   "scripts": { "test": "make test" },
-  "engines": { "node": ">= 0.2.5" },
+  "engines": { "node": ">= 0.2.4" },
   "licenses" : [{
       "type" : "MIT"
     , "url" : "http://github.com/didit-tech/FastLegS/raw/master/LICENSE"
