@@ -8,11 +8,12 @@
   "dependencies": {
     "pg": "= 0.2.7",
     "async": "= 0.1.7",
-    "underscore": "= 1.1.4"
+    "underscore": "= 1.1.4",
+    "expresso": "= 0.7.3"
   },
   "main": "index",
   "scripts": { "test": "make test" },
-  "engines": { "node": ">= 0.2.2" },
+  "engines": { "node": ">= 0.2.5" },
   "licenses" : [{
       "type" : "MIT"
     , "url" : "http://github.com/didit-tech/FastLegS/raw/master/LICENSE"
