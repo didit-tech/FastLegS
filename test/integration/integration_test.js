@@ -1,14 +1,18 @@
 var helper = require('../test_helper.js')
+  , fs = require('fs')
   , logging = false;
 
 module.exports = {
   'integrates': function() {
+    var config = fs.readFileSync(__dirname + '/../../.fastlegz', 'utf8');
+    config = JSON.parse(config);
+
     var connParams = {
-        user:     'basic_user'
-      , password: ''
-      , database: 'Fast_LegS'
-      , host:     'localhost'
-      , port:     5432
+        user:     config.username
+      , password: config.password
+      , database: config.database
+      , host:     config.host
+      , port:     config.port
     };
 
     FastLegS.connect(connParams);
@@ -147,73 +151,6 @@ module.exports = {
         }, function(err, results) {
           assert.eql(1, results.length);
           callback(err, results);
-        });
-      },
-      'destroy: model by primary key': function(callback) {
-        Comment.destroy(8, function(err, results) {
-          assert.eql(1, results);
-          callback(err, results);
-        });
-      },
-      'destroy: multiple records by primary key': function(callback) {
-        Comment.destroy([7, 6], function(err, results) {
-          assert.eql(2, results);
-          callback(err, results);
-        });
-      },
-      'destroy: by a basic selector': function(callback) {
-        Comment.destroy({ 'comment':'Comment 5' }, function(err, results) {
-          assert.eql(1, results);
-          callback(err, results);
-        });
-      },
-      'destroy: all records for model': function(callback) {
-        Comment.destroy(function(err, results) {
-          assert.eql(4, results);
-          callback(err, results);
-        });
-      },
-      'destroy: nothing via empty selector': function(callback) {
-        Comment.destroy(function(err, results) {
-          assert.eql(0, results);
-          callback(err, results);
-        });
-      },
-      'destroy: nothing via empty array': function(callback) {
-        Comment.destroy([], function(err, results) {
-          assert.eql(0, results);
-          callback(err, results);
-        });
-      },
-      'destroy: nothing via bad selector': function(callback) {
-        Comment.destroy({ 'bad_field': 3 }, function(err, results) {
-          assert.eql(0, results);
-          callback(err, results);
-        });
-      },
-      'truncate': function(callback) {
-        Post.truncate({ cascade: true }, function(err, results) {
-          assert.eql(true, results);
-          callback(err, results);
-        });
-      },
-      'find: nothing': function(callback) {
-        var ids = _.pluck(posts, 'id');
-        Post.find(ids, function(err, results) {
-          assert.eql([], results);
-          callback(err, results);
-        });
-      },
-      'find: nothing': function(callback) {
-        Post.find(posts.id, function(err, result) {
-          assert.isNull(result);
-          callback(err, result);
-        });
-      },
-      'find: no clients with bad selector': function(callback) {
-        Post.find({ 'bad_field': 12 }, function(err, result) {
-          assert.eql([], result);
-          callback(err, result);
         });
       }
     },
