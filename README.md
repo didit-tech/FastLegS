@@ -40,6 +40,6 @@ some nice output.
 
 #Contributors
 
-Thad Clay (thadclay)
-Jim Drannbauer (excellentdrums)
-Rob Malko (malkomalko)
+* Thad Clay (thadclay)
+* Jim Drannbauer (excellentdrums)
+* Rob Malko (malkomalko)
