@@ -38,3 +38,8 @@ ever seen, why don't you try checking out our amazing tests for the full
 story.  PROTIP: turn on (logging = true) in the integration tests to see
 some nice output.
 
+#Contributors
+
+Thad Clay (thadclay)
+Jim Drannbauer (excellentdrums)
+Rob Malko (malkomalko)
