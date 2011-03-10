@@ -8,7 +8,7 @@ PostgreSQL ORM on top of node-postgres.
 
 ## Quickstart
 
-    var FastLegS = require('FastLegS);
+    var FastLegS = require('FastLegS');
 
     var connectionParams = {
       user: 'shes'
