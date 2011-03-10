@@ -1,6 +1,6 @@
 var helper = require('../test_helper.js')
   , fs = require('fs')
-  , logging = false;
+  , logging = true;
 
 module.exports = {
   'integrates': function() {
@@ -152,6 +152,28 @@ module.exports = {
           assert.eql(1, results.length);
           callback(err, results);
         });
+      },
+      'findOne: comment via a basic selector': function(callback) {
+        Comment.findOne({ 'comment':'Comment 5' }, function(err, comment) {
+          assert.eql('Comment 5', comment.comment);
+          callback(err, comment);
+        });
+      },
+      'findOne: returns undefined when not found': function(callback) {
+        Comment.findOne({ 'comment':'Comment 18' }, function(err, comment) {
+          assert.eql(undefined, comment);
+          callback(err, comment);
+        });
+      },
+      'findOne: find a post with a basic include(join)': function(callback) {
+        Post.findOne({ 'title': 'Some Title 1' }, {
+          include: {
+            'comments': { }
+          }
+        }, function(err, results) {
+          assert.eql(2, results.comments.length);
+          callback(err, results);
+        })
       },
       'destroy: comment by primary key': function(callback) {
         Comment.destroy(8, function(err, results) {
