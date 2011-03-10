@@ -175,6 +175,14 @@ module.exports = {
           callback(err, results);
         })
       },
+      'update: new post title': function(callback) {
+        Post.update({ 'title': 'Some Title 1' }, {
+          'title': 'Renamed Title'
+        }, function(err, results) {
+          assert.eql(1, results);
+          callback(err, results);
+        });
+      },
       'destroy: comment by primary key': function(callback) {
         Comment.destroy(8, function(err, results) {
           assert.eql(1, results);
