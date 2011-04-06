@@ -96,7 +96,7 @@ module.exports = {
       "WHERE name = 'awesome sauce' " +
       "AND email = 'joepancakes@email.com' " +
       "LIMIT 50 " +
-      "ORDER BY field ASC;"
+      "ORDER BY \"field\" ASC;"
     );
   },
   'select statement: order desc': function() {
@@ -114,7 +114,7 @@ module.exports = {
       "WHERE name = 'awesome sauce' " +
       "AND email = 'joepancakes@email.com' " +
       "LIMIT 50 " +
-      "ORDER BY field DESC;"
+      "ORDER BY \"field\" DESC;"
     );
   },
   'select statement: multiple order fields': function() {
@@ -132,7 +132,7 @@ module.exports = {
       "WHERE name = 'awesome sauce' " +
       "AND email = 'joepancakes@email.com' " +
       "LIMIT 50 " +
-      "ORDER BY field DESC, another_field ASC;"
+      "ORDER BY \"field\" DESC, \"another_field\" ASC;"
     );
   },
   'select statement: not equals (ne, not)': function() {
@@ -295,6 +295,54 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM model_name WHERE INVALID;"
+    );
+  },
+  'select statement: column alias': function() {
+    assert.eql(
+      Statements.select(model, '2345', {
+        only: {'index':'a', 'email':'b'}
+      }),
+
+      "SELECT index AS \"a\", email AS \"b\" FROM model_name " +
+      "WHERE index = '2345';"
+    )
+  },
+  'select statment: column alias ignores invalid fields': function() {
+    assert.eql(
+      Statements.select(model, '2345', {
+        only: {'index':'a', 'email':'b', 'bad_field':'c', 'bad_field_2':'d'}
+      }),
+
+      "SELECT index AS \"a\", email AS \"b\" FROM model_name " +
+      "WHERE index = '2345';"
+    )
+  },
+  'select statment: column alias all invalid fields returns all fields': function() {
+    assert.eql(
+      Statements.select(model, '2345', {
+        only: {'bad_field':'c', 'bad_field_2':'d'}
+      }),
+
+      "SELECT * FROM model_name " +
+      "WHERE index = '2345';"
+    )
+  },
+  'select statement: column alias with order alias': function() {
+    assert.eql(
+      Statements.select(model, {
+        'name': 'awesome sauce',
+        'email': 'joepancakes@email.com'
+      }, {
+        only: {'index':'an index', 'email':'a email'},
+        limit: 50,
+        order: ['-an index', 'a email']
+      }),
+
+      "SELECT index AS \"an index\", email AS \"a email\" FROM model_name " +
+      "WHERE name = 'awesome sauce' " +
+      "AND email = 'joepancakes@email.com' " +
+      "LIMIT 50 " +
+      "ORDER BY \"an index\" DESC, \"a email\" ASC;"
     );
   },
 

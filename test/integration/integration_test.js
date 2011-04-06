@@ -1,6 +1,6 @@
 var helper = require('../test_helper.js')
   , fs = require('fs')
-  , logging = true;
+  , logging = false;
 
 module.exports = {
   'integrates': function() {
@@ -174,6 +174,31 @@ module.exports = {
           assert.eql(2, results.comments.length);
           callback(err, results);
         })
+      },
+      'find: find a post and return alias fields': function(callback) {
+        Post.find({ 'id': 1 }, {
+          only: {  'title'     : 'some_alias_title'
+                 , 'blurb'     : 'some_alias_blurb'
+                 , 'body'      : 'some_alias_body'
+                 , 'published' : 'some_alias_published'}
+        }, function(err, results) {
+          assert.eql(posts[0].title, results[0]['some_alias_title']);
+          assert.eql(posts[0].body, results[0]['some_alias_body']);
+          assert.eql(posts[0].published, results[0]['some_alias_published']);
+          assert.eql(posts[0].blurb, results[0]['some_alias_blurb']);
+          callback(err, results);
+        });
+      },
+      'find: find a post and order results descending using aliased columns': function(callback) {
+        Post.find([1,2], {
+          only: { 'title' : 'some_alias_title',
+                  'id'    : 'some id'},
+          order: ['-some id']
+        }, function(err, results) {
+          assert.eql(posts[1].id, results[0]['some id']);
+          assert.eql(posts[0].id, results[1]['some id']);
+          callback(err, results);
+        });
       },
       'update: new post title': function(callback) {
         Post.update({ 'title': 'Some Title 1' }, {
