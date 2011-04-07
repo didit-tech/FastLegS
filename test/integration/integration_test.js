@@ -1,6 +1,6 @@
 var helper = require('../test_helper.js')
   , fs = require('fs')
-  , logging = false;
+  , logging = true;
 
 module.exports = {
   'integrates': function() {
