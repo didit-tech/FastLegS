@@ -1,7 +1,7 @@
 var prompt = require("./prompt")
   , fs = require('fs')
-  , async = require("async@0.1.7")
-  , pg = require("pg@0.2.7");
+  , async = require("async")
+  , pg = require("pg");
 
 var create = {
   "posts":

@@ -1,6 +1,6 @@
 {
   "name": "FastLegS",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "PostgreSQL ORM on top of node-postgres",
   "tags" : ["orm", "pg", "postgres"],
   "author": "Didit Tech <development@didit.com>",
