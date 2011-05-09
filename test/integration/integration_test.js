@@ -1,6 +1,22 @@
-var helper = require('../test_helper.js')
-  , fs = require('fs')
-  , logging = true;
+/**
+ * Module dependencies.
+ */
+
+var helper = require('../test_helper.js');
+var fs = require('fs');
+var FastLegS = require('FastLegS');
+var async = require('async');
+var _ = require('underscore')._;
+
+/**
+ * Logging.
+ */
+
+var logging = true;
+
+/**
+ * Integration test.
+ */
 
 module.exports = {
   'integrates': function() {

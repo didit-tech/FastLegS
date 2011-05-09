@@ -1,5 +1,13 @@
-var helper = require('../test_helper.js')
-  , Statements = require('../../lib/fast_legs/statements');
+/**
+ * Module dependencies.
+ */
+
+var helper = require('../test_helper.js');
+var Statements = require('../../lib/fast_legs/statements');
+
+/**
+ * Model stub.
+ */
 
 var model = {
   tableName:  'model_name',
@@ -12,6 +20,10 @@ var model = {
     { 'column_name': 'field' }
   ]
 };
+
+/**
+ * Statements test.
+ */
 
 module.exports = {
 
