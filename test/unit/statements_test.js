@@ -32,13 +32,13 @@ module.exports = {
   'select statement: single primary key': function() {
     assert.eql(
       Statements.select(model, '2345', {}),
-      "SELECT * FROM model_name WHERE index = '2345';"
+      "SELECT * FROM \"model_name\" WHERE index = '2345';"
     );
   },
   'select statement: multiple primary keys': function() {
     assert.eql(
       Statements.select(model, ['1234', '5678'], {}),
-      "SELECT * FROM model_name WHERE index IN ('1234','5678');"
+      "SELECT * FROM \"model_name\" WHERE index IN ('1234','5678');"
     );
   },
   'select statement: single field': function() {
@@ -47,7 +47,7 @@ module.exports = {
         'name': 'awesome sauce'
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE name = 'awesome sauce';"
     );
   },
@@ -58,7 +58,7 @@ module.exports = {
         'email': 'joepancakes@email.com'
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE name = 'awesome sauce' " +
       "AND email = 'joepancakes@email.com';"
     );
@@ -72,7 +72,7 @@ module.exports = {
         only: ['index', 'email']
       }),
 
-      "SELECT index,email FROM model_name " +
+      "SELECT index,email FROM \"model_name\" " +
       "WHERE name = 'awesome sauce' " +
       "AND email = 'joepancakes@email.com';"
     );
@@ -87,7 +87,7 @@ module.exports = {
         limit: 25
       }),
 
-      "SELECT index,email FROM model_name " +
+      "SELECT index,email FROM \"model_name\" " +
       "WHERE name = 'awesome sauce' " +
       "AND email = 'joepancakes@email.com' " +
       "LIMIT 25;"
@@ -104,7 +104,7 @@ module.exports = {
         order: ['field']
       }),
 
-      "SELECT index,email FROM model_name " +
+      "SELECT index,email FROM \"model_name\" " +
       "WHERE name = 'awesome sauce' " +
       "AND email = 'joepancakes@email.com' " +
       "LIMIT 50 " +
@@ -122,7 +122,7 @@ module.exports = {
         order: ['-field']
       }),
 
-      "SELECT index,email FROM model_name " +
+      "SELECT index,email FROM \"model_name\" " +
       "WHERE name = 'awesome sauce' " +
       "AND email = 'joepancakes@email.com' " +
       "LIMIT 50 " +
@@ -140,7 +140,7 @@ module.exports = {
         order: ['-field', 'another_field']
       }),
 
-      "SELECT index,email FROM model_name " +
+      "SELECT index,email FROM \"model_name\" " +
       "WHERE name = 'awesome sauce' " +
       "AND email = 'joepancakes@email.com' " +
       "LIMIT 50 " +
@@ -153,7 +153,7 @@ module.exports = {
         'name.ne': 'awesome sauce'
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE name <> 'awesome sauce';"
     );
     assert.eql(
@@ -161,7 +161,7 @@ module.exports = {
         'name.not': 'awesome sauce'
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE name <> 'awesome sauce';"
     );
   },
@@ -171,7 +171,7 @@ module.exports = {
         'age.gt': 21
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE age > 21;"
     );
   },
@@ -181,7 +181,7 @@ module.exports = {
         'age.lt': 21
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE age < 21;"
     );
   },
@@ -191,7 +191,7 @@ module.exports = {
         'age.gte': 21
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE age >= 21;"
     );
   },
@@ -201,7 +201,7 @@ module.exports = {
         'age.lte': 21
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE age <= 21;"
     );
   },
@@ -211,7 +211,7 @@ module.exports = {
         'name.like': '%John%'
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE name LIKE '%John%';"
     );
   },
@@ -221,7 +221,7 @@ module.exports = {
         'name.nlike': '%John%'
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE name NOT LIKE '%John%';"
     );
     assert.eql(
@@ -229,7 +229,7 @@ module.exports = {
         'name.not_like': '%John%'
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE name NOT LIKE '%John%';"
     );
   },
@@ -239,7 +239,7 @@ module.exports = {
         'name.ilike': '%john%'
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE name ILIKE '%john%';"
     );
   },
@@ -249,7 +249,7 @@ module.exports = {
         'name.nilike': '%john%'
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE name NOT ILIKE '%john%';"
     );
     assert.eql(
@@ -257,7 +257,7 @@ module.exports = {
         'name.not_ilike': '%john%'
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE name NOT ILIKE '%john%';"
     );
   },
@@ -267,7 +267,7 @@ module.exports = {
         'field.in': ['some name', 34]
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE field IN ('some name',34);"
     );
   },
@@ -277,7 +277,7 @@ module.exports = {
         'field.nin': ['some name', 34]
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE field NOT IN ('some name',34);"
     );
     assert.eql(
@@ -285,7 +285,7 @@ module.exports = {
         'field.not_in': ['some name', 34]
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE field NOT IN ('some name',34);"
     );
   },
@@ -296,7 +296,7 @@ module.exports = {
         'bad_field': 1234
       }, {}),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE field IN ('some name',34);"
     );
   },
@@ -306,7 +306,7 @@ module.exports = {
         'bad_field': 1234
       }, {}),
 
-      "SELECT * FROM model_name WHERE INVALID;"
+      "SELECT * FROM \"model_name\" WHERE INVALID;"
     );
   },
   'select statement: column alias': function() {
@@ -315,7 +315,7 @@ module.exports = {
         only: {'index':'a', 'email':'b'}
       }),
 
-      "SELECT index AS \"a\", email AS \"b\" FROM model_name " +
+      "SELECT index AS \"a\", email AS \"b\" FROM \"model_name\" " +
       "WHERE index = '2345';"
     )
   },
@@ -325,7 +325,7 @@ module.exports = {
         only: {'index':'a', 'email':'b', 'bad_field':'c', 'bad_field_2':'d'}
       }),
 
-      "SELECT index AS \"a\", email AS \"b\" FROM model_name " +
+      "SELECT index AS \"a\", email AS \"b\" FROM \"model_name\" " +
       "WHERE index = '2345';"
     )
   },
@@ -335,7 +335,7 @@ module.exports = {
         only: {'bad_field':'c', 'bad_field_2':'d'}
       }),
 
-      "SELECT * FROM model_name " +
+      "SELECT * FROM \"model_name\" " +
       "WHERE index = '2345';"
     )
   },
@@ -350,7 +350,7 @@ module.exports = {
         order: ['-an index', 'a email']
       }),
 
-      "SELECT index AS \"an index\", email AS \"a email\" FROM model_name " +
+      "SELECT index AS \"an index\", email AS \"a email\" FROM \"model_name\" " +
       "WHERE name = 'awesome sauce' " +
       "AND email = 'joepancakes@email.com' " +
       "LIMIT 50 " +
@@ -365,7 +365,7 @@ module.exports = {
 
     assert.eql(
       Statements.insert(model, obj),
-      "INSERT INTO model_name(index,name) " +
+      "INSERT INTO \"model_name\"(index,name) " +
       "VALUES('1234','Joseph') RETURNING *;"
     );
   },
@@ -379,7 +379,7 @@ module.exports = {
 
     assert.eql(
       Statements.insert(model, obj),
-      "INSERT INTO model_name(email,name,age) " +
+      "INSERT INTO \"model_name\"(email,name,age) " +
       "VALUES('bob@email.com','Bob',8) RETURNING *;"
     );
   },
@@ -393,7 +393,7 @@ module.exports = {
       Statements.update(model, {
         'age.gt': 15
       }, obj),
-      "UPDATE model_name " +
+      "UPDATE \"model_name\" " +
       "SET index='1234', name='Joseph' " +
       "WHERE age > 15;"
     );
@@ -410,7 +410,7 @@ module.exports = {
       Statements.update(model, {
         'name': 'Joe'
       }, obj),
-      "UPDATE model_name " +
+      "UPDATE \"model_name\" " +
       "SET age=8, name='Bob', email='bob@email.com' " +
       "WHERE name = 'Joe';"
     );
@@ -422,7 +422,7 @@ module.exports = {
     assert.eql(
       Statements.destroy(model),
 
-      "DELETE FROM model_name;"
+      "DELETE FROM \"model_name\";"
     );
   },
   'delete statement: one field for selector': function() {
@@ -431,7 +431,7 @@ module.exports = {
         'name': 'awesome sauce'
       }),
 
-      "DELETE FROM model_name " +
+      "DELETE FROM \"model_name\" " +
       "WHERE name = 'awesome sauce';"
     );
   },
@@ -442,7 +442,7 @@ module.exports = {
         'email': 'happyman@bluesky.com'
       }),
 
-      "DELETE FROM model_name " +
+      "DELETE FROM \"model_name\" " +
       "WHERE name = 'awesome sauce' " +
       "AND email = 'happyman@bluesky.com';"
     );
@@ -455,7 +455,7 @@ module.exports = {
         'bad_field': 1000
       }),
 
-      "DELETE FROM model_name " +
+      "DELETE FROM \"model_name\" " +
       "WHERE name = 'awesome sauce' " +
       "AND email = 'happyman@bluesky.com';"
     );
@@ -466,13 +466,13 @@ module.exports = {
   'truncate statement: truncates all records': function() {
     assert.eql(
       Statements.truncate(model),
-      "TRUNCATE model_name;"
+      "TRUNCATE \"model_name\";"
     );
   },
   'truncate statement: passing cascading option': function() {
     assert.eql(
       Statements.truncate(model, { cascade: true }),
-      "TRUNCATE model_name CASCADE;"
+      "TRUNCATE \"model_name\" CASCADE;"
     );
   },
 }
