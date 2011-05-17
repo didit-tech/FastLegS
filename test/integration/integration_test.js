@@ -79,13 +79,13 @@ module.exports = {
       },
       'create: create multiple posts': function(callback) {
         Post.create(posts, function(err, result) {
-          assert.eql(posts.rowCount, result.rowCount);
+          assert.eql(posts.length, result.rowCount);
           callback(err, result);
         });
       },
       'create: create multiple comments': function(callback) {
         Comment.create(comments, function(err, result) {
-          assert.eql(comments.rowCount, result.rowCount);
+          assert.eql(comments.length, result.rowCount);
           callback(err, result);
         })
       },
