@@ -93,6 +93,22 @@ module.exports = {
       "LIMIT 25;"
     );
   },
+  'select statement: offset': function() {
+    assert.eql(
+      Statements.select(model, {
+        'name': 'awesome sauce',
+        'email': 'joepancakes@email.com'
+      }, {
+        only: ['index', 'email'],
+        offset: 5
+      }),
+
+      "SELECT index,email FROM \"model_name\" " +
+      "WHERE name = 'awesome sauce' " +
+      "AND email = 'joepancakes@email.com' " +
+      "OFFSET 5;"
+    );
+  },
   'select statement: order asc': function() {
     assert.eql(
       Statements.select(model, {
@@ -126,6 +142,26 @@ module.exports = {
       "WHERE name = 'awesome sauce' " +
       "AND email = 'joepancakes@email.com' " +
       "LIMIT 50 " +
+      "ORDER BY \"field\" DESC;"
+    );
+  },
+  'select statement: order, offset & limit': function() {
+    assert.eql(
+      Statements.select(model, {
+        'name': 'awesome sauce',
+        'email': 'joepancakes@email.com'
+      }, {
+        only: ['index', 'email'],
+        offset: 5,
+        limit: 50,
+        order: ['-field']
+      }),
+
+      "SELECT index,email FROM \"model_name\" " +
+      "WHERE name = 'awesome sauce' " +
+      "AND email = 'joepancakes@email.com' " +
+      "LIMIT 50 " +
+      "OFFSET 5 " +
       "ORDER BY \"field\" DESC;"
     );
   },
