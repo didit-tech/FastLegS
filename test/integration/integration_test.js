@@ -216,6 +216,13 @@ module.exports = {
           callback(err, results);
         });
       },
+      'find: find last 2 post ids using offset': function(callback) {
+        Post.find({}, { only: ['id'], offset: 2 }, function(err, results) {
+          assert.eql(posts[2].id, results[0].id);
+          assert.eql(posts[3].id, results[1].id);
+          callback(err, results);
+        })
+      },
       'update: new post title': function(callback) {
         Post.update({ 'title': 'Some Title 1' }, {
           'title': 'Renamed Title'
