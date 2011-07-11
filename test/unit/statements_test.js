@@ -123,8 +123,8 @@ module.exports = {
       "SELECT index,email FROM \"model_name\" " +
       "WHERE name = 'awesome sauce' " +
       "AND email = 'joepancakes@email.com' " +
-      "LIMIT 50 " +
-      "ORDER BY \"field\" ASC;"
+      "ORDER BY \"field\" ASC " +
+      "LIMIT 50;"
     );
   },
   'select statement: order desc': function() {
@@ -141,8 +141,8 @@ module.exports = {
       "SELECT index,email FROM \"model_name\" " +
       "WHERE name = 'awesome sauce' " +
       "AND email = 'joepancakes@email.com' " +
-      "LIMIT 50 " +
-      "ORDER BY \"field\" DESC;"
+      "ORDER BY \"field\" DESC " +
+      "LIMIT 50;"
     );
   },
   'select statement: order, offset & limit': function() {
@@ -160,9 +160,9 @@ module.exports = {
       "SELECT index,email FROM \"model_name\" " +
       "WHERE name = 'awesome sauce' " +
       "AND email = 'joepancakes@email.com' " +
+      "ORDER BY \"field\" DESC " +
       "LIMIT 50 " +
-      "OFFSET 5 " +
-      "ORDER BY \"field\" DESC;"
+      "OFFSET 5;"
     );
   },
   'select statement: multiple order fields': function() {
@@ -179,8 +179,8 @@ module.exports = {
       "SELECT index,email FROM \"model_name\" " +
       "WHERE name = 'awesome sauce' " +
       "AND email = 'joepancakes@email.com' " +
-      "LIMIT 50 " +
-      "ORDER BY \"field\" DESC, \"another_field\" ASC;"
+      "ORDER BY \"field\" DESC, \"another_field\" ASC " +
+      "LIMIT 50;"
     );
   },
   'select statement: not equals (ne, not)': function() {
@@ -389,8 +389,8 @@ module.exports = {
       "SELECT index AS \"an index\", email AS \"a email\" FROM \"model_name\" " +
       "WHERE name = 'awesome sauce' " +
       "AND email = 'joepancakes@email.com' " +
-      "LIMIT 50 " +
-      "ORDER BY \"an index\" DESC, \"a email\" ASC;"
+      "ORDER BY \"an index\" DESC, \"a email\" ASC " +
+      "LIMIT 50;"
     );
   },
 

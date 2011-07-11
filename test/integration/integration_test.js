@@ -223,6 +223,40 @@ module.exports = {
           callback(err, results);
         })
       },
+      'find: find with order and limit': function(callback) {
+        Post.find({}, {
+          only: ['id'],
+          order: ['-id'],
+          limit: 1
+        }, function(err, results) {
+          assert.eql(posts[3].id, results[0].id);
+          callback(err, results);
+        })
+      },
+      'find: find with order and offset': function(callback) {
+        Post.find({}, {
+          only: ['id'],
+          order: ['-id'],
+          offset: 1
+        }, function(err, results) {
+          assert.eql(posts[2].id, results[0].id);
+          assert.eql(posts[1].id, results[1].id);
+          assert.eql(posts[0].id, results[2].id);
+          callback(err, results);
+        })
+      },
+      'find: find with order, offset and limit': function(callback) {
+        Post.find({}, {
+          only: ['id'],
+          order: ['-id'],
+          offset: 1,
+          limit: 2
+        }, function(err, results) {
+          assert.eql(posts[2].id, results[0].id);
+          assert.eql(posts[1].id, results[1].id);
+          callback(err, results);
+        })
+      },
       'update: new post title': function(callback) {
         Post.update({ 'title': 'Some Title 1' }, {
           'title': 'Renamed Title'
