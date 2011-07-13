@@ -89,6 +89,18 @@ module.exports = {
           callback(err, result);
         })
       },
+      'find: find a post with empty blurbs': function(callback) {
+        var expected = 0;
+        for (var i in posts) {
+          if (posts[i].blurb === undefined || posts[i].blurb === null)
+            expected += 1;
+        }
+
+        Post.find({'blurb' : null}, function(err, results) {
+          assert.eql(expected, results.length);
+          callback(err, results);
+        });
+      },
       'find: find a post by primary key': function(callback) {
         Post.find(posts[0].id, function(err, results) {
           assert.eql(posts[0].title, results.title);
