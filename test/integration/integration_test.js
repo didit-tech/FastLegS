@@ -41,7 +41,9 @@ module.exports = {
       { id: 3, title: 'Some Title 3', blurb: 'Some blurb 3',
         body: 'Some body 3', published: true },
       { id: 4, title: 'Some Title 4', blurb: 'Some blurb 4',
-        body: 'Some body 4', published: true }
+        body: 'Some body 4', published: true },
+      { id: 5, title: '"\'lol\\"', blurb: 'Extra\'"\\"\'\'--',
+        body: '"""--\\\'"', published: false }
     ]
 
     var comments = [
@@ -241,7 +243,7 @@ module.exports = {
           order: ['-id'],
           limit: 1
         }, function(err, results) {
-          assert.eql(posts[3].id, results[0].id);
+          assert.eql(posts[4].id, results[0].id);
           callback(err, results);
         })
       },
@@ -251,9 +253,9 @@ module.exports = {
           order: ['-id'],
           offset: 1
         }, function(err, results) {
-          assert.eql(posts[2].id, results[0].id);
-          assert.eql(posts[1].id, results[1].id);
-          assert.eql(posts[0].id, results[2].id);
+          assert.eql(posts[3].id, results[0].id);
+          assert.eql(posts[2].id, results[1].id);
+          assert.eql(posts[1].id, results[2].id);
           callback(err, results);
         })
       },
@@ -264,8 +266,8 @@ module.exports = {
           offset: 1,
           limit: 2
         }, function(err, results) {
-          assert.eql(posts[2].id, results[0].id);
-          assert.eql(posts[1].id, results[1].id);
+          assert.eql(posts[3].id, results[0].id);
+          assert.eql(posts[2].id, results[1].id);
           callback(err, results);
         })
       },
