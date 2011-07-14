@@ -42,7 +42,7 @@ module.exports = {
         body: 'Some body 3', published: true },
       { id: 4, title: 'Some Title 4', blurb: 'Some blurb 4',
         body: 'Some body 4', published: true },
-      { id: 5, title: '"\'lol\\"', blurb: 'Extra\'"\\"\'\'--',
+      { id: 5, title: '\'lol\\"', blurb: 'Extra\'"\\"\'\'--',
         body: '"""--\\\'"', published: false }
     ]
 
@@ -279,6 +279,17 @@ module.exports = {
           callback(err, results);
         });
       },
+	  'update: new post title with weird chars': function(callback) {
+	  	var newTitle = '"\'pants';
+		Post.update(5, {'title' : newTitle}, function(er, results) {
+			assert.eql(1, results);
+
+			Post.findOne(5, function(er, post) {
+				assert.eql(newTitle, post.title);
+				callback(er, post);
+			});
+		});
+	  },
       'destroy: comment by primary key': function(callback) {
         Comment.destroy(8, function(err, results) {
           assert.eql(1, results);
