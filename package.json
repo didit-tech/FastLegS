@@ -6,7 +6,7 @@
   "author": "Didit Tech <development@didit.com>",
   "homepage": "https://github.com/didit-tech/FastLegS",
   "dependencies": {
-    "pg": "0.2.7",
+    "pg": "0.5.2",
     "async": "0.1.7",
     "underscore": "1.1.4",
     "expresso": "0.7.3"
