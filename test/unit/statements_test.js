@@ -520,6 +520,5 @@ module.exports = {
       Statements.call(procedure, ['first_name', 'username', 20], {}),
       "SELECT * FROM \"create_user\"('first_name', 'username', 20);"
     );
-    console.log('asdas');
   },
 }
