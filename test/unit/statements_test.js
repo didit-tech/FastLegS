@@ -21,6 +21,8 @@ var model = {
   ]
 };
 
+var procedure = 'create_user';
+
 /**
  * Statements test.
  */
@@ -32,13 +34,13 @@ module.exports = {
   'select statement: single primary key': function() {
     assert.eql(
       Statements.select(model, '2345', {}),
-      "SELECT * FROM \"model_name\" WHERE index = '2345';"
+      "SELECT * FROM \"model_name\" WHERE \"model_name\".index = '2345';"
     );
   },
   'select statement: multiple primary keys': function() {
     assert.eql(
       Statements.select(model, ['1234', '5678'], {}),
-      "SELECT * FROM \"model_name\" WHERE index IN ('1234','5678');"
+      "SELECT * FROM \"model_name\" WHERE \"model_name\".index IN ('1234','5678');"
     );
   },
   'select statement: single field': function() {
@@ -48,7 +50,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce';"
+      "WHERE \"model_name\".name = 'awesome sauce';"
     );
   },
   'select statement: multiple fields': function() {
@@ -59,8 +61,8 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com';"
+      "WHERE \"model_name\".name = 'awesome sauce' " +
+      "AND \"model_name\".email = 'joepancakes@email.com';"
     );
   },
   'select statement: only option': function() {
@@ -73,8 +75,8 @@ module.exports = {
       }),
 
       "SELECT index,email FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com';"
+      "WHERE \"model_name\".name = 'awesome sauce' " +
+      "AND \"model_name\".email = 'joepancakes@email.com';"
     );
   },
   'select statement: limit': function() {
@@ -88,8 +90,8 @@ module.exports = {
       }),
 
       "SELECT index,email FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com' " +
+      "WHERE \"model_name\".name = 'awesome sauce' " +
+      "AND \"model_name\".email = 'joepancakes@email.com' " +
       "LIMIT 25;"
     );
   },
@@ -104,8 +106,8 @@ module.exports = {
       }),
 
       "SELECT index,email FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com' " +
+      "WHERE \"model_name\".name = 'awesome sauce' " +
+      "AND \"model_name\".email = 'joepancakes@email.com' " +
       "OFFSET 5;"
     );
   },
@@ -121,8 +123,8 @@ module.exports = {
       }),
 
       "SELECT index,email FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com' " +
+      "WHERE \"model_name\".name = 'awesome sauce' " +
+      "AND \"model_name\".email = 'joepancakes@email.com' " +
       "ORDER BY \"field\" ASC " +
       "LIMIT 50;"
     );
@@ -139,8 +141,8 @@ module.exports = {
       }),
 
       "SELECT index,email FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com' " +
+      "WHERE \"model_name\".name = 'awesome sauce' " +
+      "AND \"model_name\".email = 'joepancakes@email.com' " +
       "ORDER BY \"field\" DESC " +
       "LIMIT 50;"
     );
@@ -158,8 +160,8 @@ module.exports = {
       }),
 
       "SELECT index,email FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com' " +
+      "WHERE \"model_name\".name = 'awesome sauce' " +
+      "AND \"model_name\".email = 'joepancakes@email.com' " +
       "ORDER BY \"field\" DESC " +
       "LIMIT 50 " +
       "OFFSET 5;"
@@ -177,8 +179,8 @@ module.exports = {
       }),
 
       "SELECT index,email FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com' " +
+      "WHERE \"model_name\".name = 'awesome sauce' " +
+      "AND \"model_name\".email = 'joepancakes@email.com' " +
       "ORDER BY \"field\" DESC, \"another_field\" ASC " +
       "LIMIT 50;"
     );
@@ -190,7 +192,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name <> 'awesome sauce';"
+      "WHERE \"model_name\".name <> 'awesome sauce';"
     );
     assert.eql(
       Statements.select(model, {
@@ -198,7 +200,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name <> 'awesome sauce';"
+      "WHERE \"model_name\".name <> 'awesome sauce';"
     );
   },
   'select statement: greater than (gt)': function() {
@@ -208,7 +210,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE age > 21;"
+      "WHERE \"model_name\".age > 21;"
     );
   },
   'select statement: less than (lt)': function() {
@@ -218,7 +220,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE age < 21;"
+      "WHERE \"model_name\".age < 21;"
     );
   },
   'select statement: greater than or equal (gte)': function() {
@@ -228,7 +230,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE age >= 21;"
+      "WHERE \"model_name\".age >= 21;"
     );
   },
   'select statement: less than or equal (lte)': function() {
@@ -238,7 +240,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE age <= 21;"
+      "WHERE \"model_name\".age <= 21;"
     );
   },
   'select statement: like (like)': function() {
@@ -248,7 +250,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name LIKE '%John%';"
+      "WHERE \"model_name\".name LIKE '%John%';"
     );
   },
   'select statement: not like (nlike, not_like)': function() {
@@ -258,7 +260,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name NOT LIKE '%John%';"
+      "WHERE \"model_name\".name NOT LIKE '%John%';"
     );
     assert.eql(
       Statements.select(model, {
@@ -266,7 +268,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name NOT LIKE '%John%';"
+      "WHERE \"model_name\".name NOT LIKE '%John%';"
     );
   },
   'select statement: case insensitive like (ilike)': function() {
@@ -276,7 +278,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name ILIKE '%john%';"
+      "WHERE \"model_name\".name ILIKE '%john%';"
     );
   },
   'select statement: not case insensitive like (nilike, not_ilike)': function() {
@@ -286,7 +288,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name NOT ILIKE '%john%';"
+      "WHERE \"model_name\".name NOT ILIKE '%john%';"
     );
     assert.eql(
       Statements.select(model, {
@@ -294,7 +296,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name NOT ILIKE '%john%';"
+      "WHERE \"model_name\".name NOT ILIKE '%john%';"
     );
   },
   'select statement: in a list of values (in)': function() {
@@ -304,7 +306,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE field IN ('some name',34);"
+      "WHERE \"model_name\".field IN ('some name',34);"
     );
   },
   'select statement: not in a list of values (nin, not_in)': function() {
@@ -314,7 +316,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE field NOT IN ('some name',34);"
+      "WHERE \"model_name\".field NOT IN ('some name',34);"
     );
     assert.eql(
       Statements.select(model, {
@@ -322,7 +324,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE field NOT IN ('some name',34);"
+      "WHERE \"model_name\".field NOT IN ('some name',34);"
     );
   },
   'select statement: ignores invalid fields': function() {
@@ -333,7 +335,7 @@ module.exports = {
       }, {}),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE field IN ('some name',34);"
+      "WHERE \"model_name\".field IN ('some name',34);"
     );
   },
   'select statement: returns empty with all invalid fields': function() {
@@ -352,7 +354,7 @@ module.exports = {
       }),
 
       "SELECT index AS \"a\", email AS \"b\" FROM \"model_name\" " +
-      "WHERE index = '2345';"
+      "WHERE \"model_name\".index = '2345';"
     )
   },
   'select statment: column alias ignores invalid fields': function() {
@@ -362,7 +364,7 @@ module.exports = {
       }),
 
       "SELECT index AS \"a\", email AS \"b\" FROM \"model_name\" " +
-      "WHERE index = '2345';"
+      "WHERE \"model_name\".index = '2345';"
     )
   },
   'select statment: column alias all invalid fields returns all fields': function() {
@@ -372,7 +374,7 @@ module.exports = {
       }),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE index = '2345';"
+      "WHERE \"model_name\".index = '2345';"
     )
   },
   'select statement: column alias with order alias': function() {
@@ -387,8 +389,8 @@ module.exports = {
       }),
 
       "SELECT index AS \"an index\", email AS \"a email\" FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com' " +
+      "WHERE \"model_name\".name = 'awesome sauce' " +
+      "AND \"model_name\".email = 'joepancakes@email.com' " +
       "ORDER BY \"an index\" DESC, \"a email\" ASC " +
       "LIMIT 50;"
     );
@@ -431,7 +433,7 @@ module.exports = {
       }, obj),
       "UPDATE \"model_name\" " +
       "SET index='1234', name='Joseph' " +
-      "WHERE age > 15;"
+      "WHERE \"model_name\".age > 15;"
     );
   },
   'update statement: ignore invalid fields': function() {
@@ -448,7 +450,7 @@ module.exports = {
       }, obj),
       "UPDATE \"model_name\" " +
       "SET age=8, name='Bob', email='bob@email.com' " +
-      "WHERE name = 'Joe';"
+      "WHERE \"model_name\".name = 'Joe';"
     );
   },
 
@@ -468,7 +470,7 @@ module.exports = {
       }),
 
       "DELETE FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce';"
+      "WHERE \"model_name\".name = 'awesome sauce';"
     );
   },
   'delete statement: multiple fields for selector': function() {
@@ -479,8 +481,8 @@ module.exports = {
       }),
 
       "DELETE FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'happyman@bluesky.com';"
+      "WHERE \"model_name\".name = 'awesome sauce' " +
+      "AND \"model_name\".email = 'happyman@bluesky.com';"
     );
   },
   'delete statement: ignores invalid fields': function() {
@@ -492,8 +494,8 @@ module.exports = {
       }),
 
       "DELETE FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'happyman@bluesky.com';"
+      "WHERE \"model_name\".name = 'awesome sauce' " +
+      "AND \"model_name\".email = 'happyman@bluesky.com';"
     );
   },
 
@@ -510,5 +512,14 @@ module.exports = {
       Statements.truncate(model, { cascade: true }),
       "TRUNCATE \"model_name\" CASCADE;"
     );
+  },
+  
+  // CALL
+  'call procedure: call procedure with arguments': function() {
+    assert.eql(
+      Statements.call(procedure, ['first_name', 'username', 20], {}),
+      "SELECT * FROM \"create_user\"('first_name', 'username', 20);"
+    );
+    console.log('asdas');
   },
 }
