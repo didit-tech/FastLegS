@@ -31,24 +31,24 @@ module.exports = {
 
   'select statement: single primary key': function() {
     assert.eql(
-      Statements.select(model, '2345', {}),
+      Statements.select(model, '2345', {}, []),
       "SELECT * FROM \"model_name\" WHERE index = '2345';"
     );
   },
   'select statement: multiple primary keys': function() {
     assert.eql(
-      Statements.select(model, ['1234', '5678'], {}),
-      "SELECT * FROM \"model_name\" WHERE index IN ('1234','5678');"
+      Statements.select(model, ['1234', '5678'], {}, []),
+      "SELECT * FROM \"model_name\" WHERE index IN ($1,$2);"
     );
   },
   'select statement: single field': function() {
     assert.eql(
       Statements.select(model, {
         'name': 'awesome sauce'
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce';"
+      "WHERE name = $1;"
     );
   },
   'select statement: multiple fields': function() {
@@ -56,11 +56,11 @@ module.exports = {
       Statements.select(model, {
         'name': 'awesome sauce',
         'email': 'joepancakes@email.com'
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com';"
+      "WHERE name = $1 " +
+      "AND email = $2;"
     );
   },
   'select statement: only option': function() {
@@ -70,11 +70,11 @@ module.exports = {
         'email': 'joepancakes@email.com'
       }, {
         only: ['index', 'email']
-      }),
+      }, []),
 
       "SELECT index,email FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com';"
+      "WHERE name = $1 " +
+      "AND email = $2;"
     );
   },
   'select statement: limit': function() {
@@ -85,11 +85,11 @@ module.exports = {
       }, {
         only: ['index', 'email'],
         limit: 25
-      }),
+      }, []),
 
       "SELECT index,email FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com' " +
+      "WHERE name = $1 " +
+      "AND email = $2 " +
       "LIMIT 25;"
     );
   },
@@ -101,11 +101,11 @@ module.exports = {
       }, {
         only: ['index', 'email'],
         offset: 5
-      }),
+      }, []),
 
       "SELECT index,email FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com' " +
+      "WHERE name = $1 " +
+      "AND email = $2 " +
       "OFFSET 5;"
     );
   },
@@ -118,11 +118,11 @@ module.exports = {
         only: ['index', 'email'],
         limit: 50,
         order: ['field']
-      }),
+      }, []),
 
       "SELECT index,email FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com' " +
+      "WHERE name = $1 " +
+      "AND email = $2 " +
       "ORDER BY \"field\" ASC " +
       "LIMIT 50;"
     );
@@ -136,11 +136,11 @@ module.exports = {
         only: ['index', 'email'],
         limit: 50,
         order: ['-field']
-      }),
+      }, []),
 
       "SELECT index,email FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com' " +
+      "WHERE name = $1 " +
+      "AND email = $2 " +
       "ORDER BY \"field\" DESC " +
       "LIMIT 50;"
     );
@@ -155,11 +155,11 @@ module.exports = {
         offset: 5,
         limit: 50,
         order: ['-field']
-      }),
+      }, []),
 
       "SELECT index,email FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com' " +
+      "WHERE name = $1 " +
+      "AND email = $2 " +
       "ORDER BY \"field\" DESC " +
       "LIMIT 50 " +
       "OFFSET 5;"
@@ -174,11 +174,11 @@ module.exports = {
         only: ['index', 'email'],
         limit: 50,
         order: ['-field', 'another_field']
-      }),
+      }, []),
 
       "SELECT index,email FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com' " +
+      "WHERE name = $1 " +
+      "AND email = $2 " +
       "ORDER BY \"field\" DESC, \"another_field\" ASC " +
       "LIMIT 50;"
     );
@@ -187,142 +187,142 @@ module.exports = {
     assert.eql(
       Statements.select(model, {
         'name.ne': 'awesome sauce'
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name <> 'awesome sauce';"
+      "WHERE name <> $1;"
     );
     assert.eql(
       Statements.select(model, {
         'name.not': 'awesome sauce'
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name <> 'awesome sauce';"
+      "WHERE name <> $1;"
     );
   },
   'select statement: greater than (gt)': function() {
     assert.eql(
       Statements.select(model, {
         'age.gt': 21
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE age > 21;"
+      "WHERE age > $1;"
     );
   },
   'select statement: less than (lt)': function() {
     assert.eql(
       Statements.select(model, {
         'age.lt': 21
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE age < 21;"
+      "WHERE age < $1;"
     );
   },
   'select statement: greater than or equal (gte)': function() {
     assert.eql(
       Statements.select(model, {
         'age.gte': 21
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE age >= 21;"
+      "WHERE age >= $1;"
     );
   },
   'select statement: less than or equal (lte)': function() {
     assert.eql(
       Statements.select(model, {
         'age.lte': 21
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE age <= 21;"
+      "WHERE age <= $1;"
     );
   },
   'select statement: like (like)': function() {
     assert.eql(
       Statements.select(model, {
         'name.like': '%John%'
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name LIKE '%John%';"
+      "WHERE name LIKE $1;"
     );
   },
   'select statement: not like (nlike, not_like)': function() {
     assert.eql(
       Statements.select(model, {
         'name.nlike': '%John%'
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name NOT LIKE '%John%';"
+      "WHERE name NOT LIKE $1;"
     );
     assert.eql(
       Statements.select(model, {
         'name.not_like': '%John%'
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name NOT LIKE '%John%';"
+      "WHERE name NOT LIKE $1;"
     );
   },
   'select statement: case insensitive like (ilike)': function() {
     assert.eql(
       Statements.select(model, {
         'name.ilike': '%john%'
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name ILIKE '%john%';"
+      "WHERE name ILIKE $1;"
     );
   },
   'select statement: not case insensitive like (nilike, not_ilike)': function() {
     assert.eql(
       Statements.select(model, {
         'name.nilike': '%john%'
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name NOT ILIKE '%john%';"
+      "WHERE name NOT ILIKE $1;"
     );
     assert.eql(
       Statements.select(model, {
         'name.not_ilike': '%john%'
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name NOT ILIKE '%john%';"
+      "WHERE name NOT ILIKE $1;"
     );
   },
   'select statement: in a list of values (in)': function() {
     assert.eql(
       Statements.select(model, {
         'field.in': ['some name', 34]
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE field IN ('some name',34);"
+      "WHERE field IN ($1,$2);"
     );
   },
   'select statement: not in a list of values (nin, not_in)': function() {
     assert.eql(
       Statements.select(model, {
         'field.nin': ['some name', 34]
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE field NOT IN ('some name',34);"
+      "WHERE field NOT IN ($1,$2);"
     );
     assert.eql(
       Statements.select(model, {
         'field.not_in': ['some name', 34]
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE field NOT IN ('some name',34);"
+      "WHERE field NOT IN ($1,$2);"
     );
   },
   'select statement: ignores invalid fields': function() {
@@ -330,10 +330,10 @@ module.exports = {
       Statements.select(model, {
         'field.in': ['some name', 34],
         'bad_field': 1234
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE field IN ('some name',34);"
+      "WHERE field IN ($1,$2);"
     );
   },
   'select statement: returns empty with all invalid fields': function() {
@@ -384,11 +384,11 @@ module.exports = {
         only: {'index':'an index', 'email':'a email'},
         limit: 50,
         order: ['-an index', 'a email']
-      }),
+      }, []),
 
       "SELECT index AS \"an index\", email AS \"a email\" FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'joepancakes@email.com' " +
+      "WHERE name = $1 " +
+      "AND email = $2 " +
       "ORDER BY \"an index\" DESC, \"a email\" ASC " +
       "LIMIT 50;"
     );
@@ -397,10 +397,11 @@ module.exports = {
     assert.eql(
       Statements.select(model, {
         'name': null
-      }, {}),
+      }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
-      "WHERE name IS NULL;"    );
+      "WHERE name IS NULL;"
+    );
   },
 
   // INSERT
@@ -409,9 +410,9 @@ module.exports = {
     var obj = { index: '1234', name: 'Joseph' };
 
     assert.eql(
-      Statements.insert(model, obj),
+      Statements.insert(model, obj, []),
       "INSERT INTO \"model_name\"(index,name) " +
-      "VALUES('1234','Joseph') RETURNING *;"
+      "VALUES($1,$2) RETURNING *;"
     );
   },
   'insert statement: ignore invalid fields': function() {
@@ -423,9 +424,9 @@ module.exports = {
     };
 
     assert.eql(
-      Statements.insert(model, obj),
+      Statements.insert(model, obj, []),
       "INSERT INTO \"model_name\"(email,name,age) " +
-      "VALUES('bob@email.com','Bob',8) RETURNING *;"
+      "VALUES($1,$2,$3) RETURNING *;"
     );
   },
 
@@ -437,10 +438,10 @@ module.exports = {
     assert.eql(
       Statements.update(model, {
         'age.gt': 15
-      }, obj),
+      }, obj, []),
       "UPDATE \"model_name\" " +
-      "SET index='1234', name='Joseph' " +
-      "WHERE age > 15;"
+      "SET index= $1, name= $2 " +
+      "WHERE age > $3;"
     );
   },
   'update statement: ignore invalid fields': function() {
@@ -454,10 +455,10 @@ module.exports = {
     assert.eql(
       Statements.update(model, {
         'name': 'Joe'
-      }, obj),
+      }, obj, []),
       "UPDATE \"model_name\" " +
-      "SET age=8, name='Bob', email='bob@email.com' " +
-      "WHERE name = 'Joe';"
+      "SET age= $1, name= $2, email= $3 " +
+      "WHERE name = $4;"
     );
   },
 
@@ -474,10 +475,10 @@ module.exports = {
     assert.eql(
       Statements.destroy(model, {
         'name': 'awesome sauce'
-      }),
+      }, []),
 
       "DELETE FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce';"
+      "WHERE name = $1;"
     );
   },
   'delete statement: multiple fields for selector': function() {
@@ -485,11 +486,11 @@ module.exports = {
       Statements.destroy(model, {
         'name': 'awesome sauce',
         'email': 'happyman@bluesky.com'
-      }),
+      }, []),
 
       "DELETE FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'happyman@bluesky.com';"
+      "WHERE name = $1 " +
+      "AND email = $2;"
     );
   },
   'delete statement: ignores invalid fields': function() {
@@ -498,11 +499,11 @@ module.exports = {
         'name': 'awesome sauce',
         'email': 'happyman@bluesky.com',
         'bad_field': 1000
-      }),
+      }, []),
 
       "DELETE FROM \"model_name\" " +
-      "WHERE name = 'awesome sauce' " +
-      "AND email = 'happyman@bluesky.com';"
+      "WHERE name = $1 " +
+      "AND email = $2;"
     );
   },
 
@@ -519,5 +520,5 @@ module.exports = {
       Statements.truncate(model, { cascade: true }),
       "TRUNCATE \"model_name\" CASCADE;"
     );
-  },
+  }
 }

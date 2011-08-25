@@ -40,8 +40,8 @@ module.exports = {
         body: 'Some body 2', published: true },
       { id: 3, title: 'Some Title 3', blurb: 'Some blurb 3',
         body: 'Some body 3', published: true },
-      { id: 4, title: 'Some Title 4', blurb: 'Some blurb 4',
-        body: 'Some body 4', published: true }
+      { id: 4, title: '\'lol\\"', blurb: 'Extra\'"\\"\'\'--',
+        body: '"""--\\\'"', published: false }
     ]
 
     var comments = [
@@ -169,6 +169,14 @@ module.exports = {
           callback(err, results);
         });
       },
+      'find: exercising our in muscles': function(callback) {
+        Post.find({
+          'title.in': ['Some Title 1', 'Some Title 2']
+        }, function(err, results) {
+          assert.eql(2, results.length);
+          callback(err, results);
+        });
+      },
       'findOne: comment via a basic selector': function(callback) {
         Comment.findOne({ 'comment':'Comment 5' }, function(err, comment) {
           assert.eql('Comment 5', comment.comment);
@@ -262,7 +270,7 @@ module.exports = {
         _.each(posts, function(post) {
           if (_.isNull(post.blurb) || _.isUndefined(post.blurb)) { expected++; }
         });
-        
+
         Post.find({'blurb' : null}, function(err, results) {
           assert.eql(expected, results.length);
           callback(err, results);
@@ -274,6 +282,16 @@ module.exports = {
         }, function(err, results) {
           assert.eql(1, results);
           callback(err, results);
+        });
+      },
+      'update: new post title with weird characters': function(callback) {
+        var newTitle = '"\'pants';
+        Post.update(4, {'title' : newTitle}, function(er, results) {
+          assert.eql(1, results);
+          Post.findOne(4, function(er, post) {
+            assert.eql(newTitle, post.title);
+            callback(er, post);
+          });
         });
       },
       'destroy: comment by primary key': function(callback) {
