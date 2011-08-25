@@ -257,6 +257,17 @@ module.exports = {
           callback(err, results);
         })
       },
+      'find: find a post with empty blurbs': function(callback) {
+        var expected = 0;
+        _.each(posts, function(post) {
+          if (_.isNull(post.blurb) || _.isUndefined(post.blurb)) { expected++; }
+        });
+        
+        Post.find({'blurb' : null}, function(err, results) {
+          assert.eql(expected, results.length);
+          callback(err, results);
+        });
+      },
       'update: new post title': function(callback) {
         Post.update({ 'title': 'Some Title 1' }, {
           'title': 'Renamed Title'

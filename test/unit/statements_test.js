@@ -393,6 +393,15 @@ module.exports = {
       "LIMIT 50;"
     );
   },
+  'select statement: query using null': function() {
+    assert.eql(
+      Statements.select(model, {
+        'name': null
+      }, {}),
+
+      "SELECT * FROM \"model_name\" " +
+      "WHERE name IS NULL;"    );
+  },
 
   // INSERT
 
