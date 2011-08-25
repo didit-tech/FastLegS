@@ -25,7 +25,19 @@ var create = {
 "CREATE INDEX comments_post_id \
   ON comments\
   USING btree\
-  (post_id)"
+  (post_id)",
+  "procedure":
+"CREATE OR REPLACE FUNCTION sum_numbers(v_n1 integer, v_n2 integer) \
+  RETURNS integer AS \
+$BODY$ \
+DECLARE \
+  v_sum INTEGER; \
+BEGIN \
+    SELECT v_n1 + v_n2 INTO v_sum; \
+    RETURN v_sum; \
+END; \
+$BODY$ \
+  LANGUAGE plpgsql VOLATILE"
 };
 
 console.log("\nFastLegS: Please enter your Postgres credentials " +
@@ -63,7 +75,8 @@ async.series({
               async.series([
                 function(cb) { client.query(create.posts, cb); },
                 function(cb) { client.query(create.comments, cb); },
-                function(cb) { client.query(create.comments_post_id_index, cb); }
+                function(cb) { client.query(create.comments_post_id_index, cb); },
+                function(cb) { client.query(create.procedure, cb); }
               ], function(err, results) {
                 if (!err) {
                   fs.writeFile('.fastlegs',
