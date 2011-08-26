@@ -12,7 +12,7 @@ var _ = require('underscore')._;
  * Logging.
  */
 
-var logging = true;
+var logging = false;
 
 /**
  * Integration test.
@@ -169,9 +169,49 @@ module.exports = {
           callback(err, results);
         });
       },
-      'find: exercising our in muscles': function(callback) {
+      'find: find using in clause with one item': function(callback) {
+        Post.find({
+          'title.in': ['Some Title 1']
+        }, function(err, results) {
+          assert.eql(1, results.length);
+          callback(err, results);
+        });
+      },
+      'find: find using in clause with multiple items': function(callback) {
         Post.find({
           'title.in': ['Some Title 1', 'Some Title 2']
+        }, function(err, results) {
+          assert.eql(2, results.length);
+          callback(err, results);
+        });
+      },
+      'find: find using nin clause with one item': function(callback) {
+        Post.find({
+          'title.nin': ['Some Title 1']
+        }, function(err, results) {
+          assert.eql(3, results.length);
+          callback(err, results);
+        });
+      },
+      'find: find using nin clause with multiple items': function(callback) {
+        Post.find({
+          'title.nin': ['Some Title 1', 'Some Title 2']
+        }, function(err, results) {
+          assert.eql(2, results.length);
+          callback(err, results);
+        });
+      },
+      'find: find using not_in clause with one item': function(callback) {
+        Post.find({
+          'title.nin': ['Some Title 1']
+        }, function(err, results) {
+          assert.eql(3, results.length);
+          callback(err, results);
+        });
+      },
+      'find: find using not_in clause with multiple items': function(callback) {
+        Post.find({
+          'title.nin': ['Some Title 1', 'Some Title 2']
         }, function(err, results) {
           assert.eql(2, results.length);
           callback(err, results);

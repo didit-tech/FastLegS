@@ -28,7 +28,6 @@ var model = {
 module.exports = {
 
   // SELECT
-
   'select statement: single primary key': function() {
     assert.eql(
       Statements.select(model, '2345', {}, []),
@@ -300,6 +299,15 @@ module.exports = {
   'select statement: in a list of values (in)': function() {
     assert.eql(
       Statements.select(model, {
+        'field.in': ['some name']
+      }, {}, []),
+
+      "SELECT * FROM \"model_name\" " +
+      "WHERE field IN ($1);"
+    );
+
+    assert.eql(
+      Statements.select(model, {
         'field.in': ['some name', 34]
       }, {}, []),
 
@@ -310,12 +318,22 @@ module.exports = {
   'select statement: not in a list of values (nin, not_in)': function() {
     assert.eql(
       Statements.select(model, {
+        'field.nin': ['some name']
+      }, {}, []),
+
+      "SELECT * FROM \"model_name\" " +
+      "WHERE field NOT IN ($1);"
+    );
+
+    assert.eql(
+      Statements.select(model, {
         'field.nin': ['some name', 34]
       }, {}, []),
 
       "SELECT * FROM \"model_name\" " +
       "WHERE field NOT IN ($1,$2);"
     );
+
     assert.eql(
       Statements.select(model, {
         'field.not_in': ['some name', 34]
