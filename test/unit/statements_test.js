@@ -421,6 +421,16 @@ module.exports = {
       "WHERE name IS NULL;"
     );
   },
+  'select statement: text search query': function() {
+    assert.eql(
+      Statements.select(model, {
+        'name.textsearch': 'test'
+      }, {}, []),
+
+      "SELECT * FROM \"model_name\" " +
+      "WHERE to_tsvector('english', name) @@ to_tsquery('english', $1);"
+    );
+  },
 
   // INSERT
 
