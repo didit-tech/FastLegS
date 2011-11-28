@@ -1,15 +1,16 @@
 {
   "name": "FastLegS",
-  "version": "0.1.2",
+  "version": "0.1.3-forked",
   "description": "PostgreSQL ORM on top of node-postgres",
   "tags" : ["orm", "pg", "postgres"],
   "author": "Didit Tech <development@didit.com>",
+  "contributors": ["Ryan Meador"],
   "homepage": "https://github.com/didit-tech/FastLegS",
   "dependencies": {
-    "async": "0.1.9",
-    "expresso": "0.8.1",
-    "pg": "0.5.5",
-    "underscore": "1.1.7"
+    "async": ">=0.1.9",
+    "expresso": ">=0.8.1",
+    "pg": ">=0.6.6",
+    "underscore": ">=1.2.1"
   },
   "main": "index",
   "scripts": { "test": "make test" },
