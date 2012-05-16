@@ -1,5 +1,3 @@
-require.paths.unshift(__dirname + '/../..', __dirname + '/../support');
-
 var assert = global.assert = require('assert');
 
 /**
@@ -7,5 +5,6 @@ var assert = global.assert = require('assert');
  */
 
 process.on('uncaughtException', function(err) {
+  console.dir(err);
   process.exit(1);
 });
