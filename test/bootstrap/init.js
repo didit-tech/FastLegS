@@ -1,7 +1,7 @@
-var prompt = require("./prompt")
-  , fs = require('fs')
+var fs = require('fs')
   , async = require("async")
-  , pg = require("pg");
+  , pg = require("pg")
+  , read = require('read')
 
 var create = {
   "posts":
@@ -33,19 +33,19 @@ console.log("\nFastLegS: Please enter your Postgres credentials " +
 
 async.series({
   "username": function(cb) {
-    prompt("pg username: ", cb);
+    read({prompt: "pg username: "}, cb);
   },
   "password": function(cb) {
-    prompt("pg password: ", null, true, cb);
+    read({ prompt: "pg password: ", silent: true }, cb)
   },
   "database": function(cb) {
-    prompt("pg database: ", "fastlegs_test", cb);
+    read({ prompt: "pg database: ", default: "fastlegs_test" }, cb)
   },
   "host": function(cb) {
-    prompt("pg host: ", "localhost", cb);
+    read({ prompt: "pg host: ", default: "localhost" }, cb)
   },
   "port": function(cb) {
-    prompt("pg port: ", 5432, cb);
+    read({ prompt: "pg port: ", default: 5432 }, cb)
   },
 }, function(err, config) {
   config.password = config.password === null ? '' : config.password;
@@ -70,6 +70,7 @@ async.series({
                     JSON.stringify(config),
                   function (err) {
                     client.end();
+                    process.exit();
                   });
                 } else { client.end(); }
               });
