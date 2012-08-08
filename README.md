@@ -1,3 +1,4 @@
+[![Build Status](https://secure.travis-ci.org/didit-tech/FastLegS.png)](http://travis-ci.org/didit-tech/FastLegS)
 #FastLegS
 
 PostgreSQL ORM on top of node-postgres.
