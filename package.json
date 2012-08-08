@@ -17,7 +17,7 @@
     "read": "0.1.0"
   },
   "main": "index",
-  "scripts": { "test": "make test" },
+  "scripts": { "test": "make test-unit" },
   "engines": { "node": ">= 0.6.17 < 0.7.0" },
   "licenses" : [{
       "type" : "MIT"
