@@ -1,0 +1,183 @@
+info it worked if it ends with ok
+verbose cli [ 'node',
+verbose cli   '/usr/local/bin/npm',
+verbose cli   'publish',
+verbose cli   'https://github.com/didit-tech/FastLegS/tarball/master' ]
+info using npm@1.1.21
+info using node@v0.6.18
+verbose config file /Users/jerkelens/.npmrc
+verbose config file /usr/local/etc/npmrc
+verbose config file /usr/local/lib/node_modules/npm/npmrc
+verbose publish [ 'https://github.com/didit-tech/FastLegS/tarball/master' ]
+verbose cache add [ 'https://github.com/didit-tech/FastLegS/tarball/master',
+verbose cache add   null ]
+silly cache add: name, spec, args [ undefined,
+silly cache add: name, spec, args   'https://github.com/didit-tech/FastLegS/tarball/master',
+silly cache add: name, spec, args   [ 'https://github.com/didit-tech/FastLegS/tarball/master',
+silly cache add: name, spec, args     null ] ]
+verbose parsed url { protocol: 'https:',
+verbose parsed url   slashes: true,
+verbose parsed url   host: 'github.com',
+verbose parsed url   hostname: 'github.com',
+verbose parsed url   href: 'https://github.com/didit-tech/FastLegS/tarball/master',
+verbose parsed url   pathname: '/didit-tech/FastLegS/tarball/master',
+verbose parsed url   path: '/didit-tech/FastLegS/tarball/master' }
+verbose addRemoteTarball [ 'https://github.com/didit-tech/FastLegS/tarball/master',
+verbose addRemoteTarball   null ]
+verbose fetch to /var/folders/mU/mU-GJmBhEg4uMMXbRzUv5++++TM/-Tmp-/npm-1342038943716/1342038943716-0.8340423931367695/tmp.tgz
+http GET https://github.com/didit-tech/FastLegS/tarball/master
+http 200 https://github.com/didit-tech/FastLegS/tarball/master
+verbose unpack /var/folders/mU/mU-GJmBhEg4uMMXbRzUv5++++TM/-Tmp-/npm-1342038943716/1342038943716-0.8340423931367695/tmp.tgz
+silly gunzTarPerm modes [ '755', '644' ]
+silly extracting entry 
+silly modified mode [ '', 509, 493 ]
+silly extracting entry .gitignore
+silly modified mode [ '.gitignore', 436, 420 ]
+silly extracting entry LICENSE
+silly modified mode [ 'LICENSE', 436, 420 ]
+silly extracting entry Makefile
+silly modified mode [ 'Makefile', 436, 420 ]
+silly extracting entry README.md
+silly modified mode [ 'README.md', 436, 420 ]
+silly extracting entry index.js
+silly modified mode [ 'index.js', 436, 420 ]
+silly extracting entry lib/
+silly modified mode [ 'lib/', 509, 493 ]
+silly extracting entry lib/fast_legs/
+silly modified mode [ 'lib/fast_legs/', 509, 493 ]
+silly extracting entry lib/fast_legs/base.js
+silly modified mode [ 'lib/fast_legs/base.js', 436, 420 ]
+silly extracting entry lib/fast_legs/client.js
+silly modified mode [ 'lib/fast_legs/client.js', 436, 420 ]
+silly extracting entry lib/fast_legs/index.js
+silly modified mode [ 'lib/fast_legs/index.js', 436, 420 ]
+silly extracting entry lib/fast_legs/statements.js
+silly modified mode [ 'lib/fast_legs/statements.js', 436, 420 ]
+silly extracting entry lib/fast_legs/utils.js
+silly modified mode [ 'lib/fast_legs/utils.js', 436, 420 ]
+silly extracting entry package.json
+silly modified mode [ 'package.json', 436, 420 ]
+silly extracting entry test/
+silly modified mode [ 'test/', 509, 493 ]
+silly extracting entry test/bootstrap/
+silly modified mode [ 'test/bootstrap/', 509, 493 ]
+silly extracting entry test/bootstrap/init.js
+silly modified mode [ 'test/bootstrap/init.js', 436, 420 ]
+silly extracting entry test/integration/
+silly modified mode [ 'test/integration/', 509, 493 ]
+silly extracting entry test/integration/integration.test.js
+silly modified mode [ 'test/integration/integration.test.js', 436, 420 ]
+silly extracting entry test/integration/pg_connection.test.js
+silly modified mode [ 'test/integration/pg_connection.test.js', 436, 420 ]
+silly extracting entry test/mocha.opts
+silly modified mode [ 'test/mocha.opts', 436, 420 ]
+silly extracting entry test/test_helper.js
+silly modified mode [ 'test/test_helper.js', 436, 420 ]
+silly extracting entry test/unit/
+silly modified mode [ 'test/unit/', 509, 493 ]
+silly extracting entry test/unit/delete_statements.test.js
+silly modified mode [ 'test/unit/delete_statements.test.js', 436, 420 ]
+silly extracting entry test/unit/insert_statements.test.js
+silly modified mode [ 'test/unit/insert_statements.test.js', 436, 420 ]
+silly extracting entry test/unit/select_statements.test.js
+silly modified mode [ 'test/unit/select_statements.test.js', 436, 420 ]
+silly extracting entry test/unit/truncate_statements.test.js
+silly modified mode [ 'test/unit/truncate_statements.test.js', 436, 420 ]
+silly extracting entry test/unit/update_statements.test.js
+silly modified mode [ 'test/unit/update_statements.test.js', 436, 420 ]
+verbose caching /var/folders/mU/mU-GJmBhEg4uMMXbRzUv5++++TM/-Tmp-/npm-1342038943716/1342038943716-0.8340423931367695/package/package.json
+verbose loadDefaults FastLegS@0.1.7
+verbose from cache /var/folders/mU/mU-GJmBhEg4uMMXbRzUv5++++TM/-Tmp-/npm-1342038943716/1342038943716-0.8340423931367695/package/package.json
+verbose tar.pack [ '/Users/jerkelens/.npm/FastLegS/0.1.7/package.tgz',
+verbose tar.pack   '/var/folders/mU/mU-GJmBhEg4uMMXbRzUv5++++TM/-Tmp-/npm-1342038943716/1342038943716-0.8340423931367695/package' ]
+verbose tarball /Users/jerkelens/.npm/FastLegS/0.1.7/package.tgz
+verbose folder /var/folders/mU/mU-GJmBhEg4uMMXbRzUv5++++TM/-Tmp-/npm-1342038943716/1342038943716-0.8340423931367695/package
+verbose unpack /Users/jerkelens/.npm/FastLegS/0.1.7/package.tgz
+silly gunzTarPerm modes [ '755', '644' ]
+silly extracting entry package.json
+silly extracting entry .npmignore
+silly extracting entry README.md
+silly extracting entry LICENSE
+silly extracting entry index.js
+silly extracting entry lib/fast_legs/base.js
+silly extracting entry lib/fast_legs/client.js
+silly extracting entry lib/fast_legs/index.js
+silly extracting entry lib/fast_legs/statements.js
+silly extracting entry lib/fast_legs/utils.js
+silly extracting entry Makefile
+silly extracting entry test/test_helper.js
+silly extracting entry test/bootstrap/init.js
+silly extracting entry test/integration/integration.test.js
+silly extracting entry test/integration/pg_connection.test.js
+silly extracting entry test/mocha.opts
+silly extracting entry test/unit/delete_statements.test.js
+silly extracting entry test/unit/insert_statements.test.js
+silly extracting entry test/unit/select_statements.test.js
+silly extracting entry test/unit/truncate_statements.test.js
+silly extracting entry test/unit/update_statements.test.js
+verbose caching /Users/jerkelens/.npm/FastLegS/0.1.7/package/package.json
+verbose loadDefaults FastLegS@0.1.7
+silly updated sha bytes 11187
+info shasum 1f582f98b06f560044187190d784f63137b6e9df
+info shasum /Users/jerkelens/.npm/FastLegS/0.1.7/package.tgz
+verbose from cache /Users/jerkelens/.npm/FastLegS/0.1.7/package/package.json
+verbose chmod /Users/jerkelens/.npm/FastLegS/0.1.7/package.tgz 644
+verbose chown [ '/Users/jerkelens/.npm/FastLegS/0.1.7/package.tgz', 502, 20 ]
+silly publish { name: 'FastLegS',
+silly publish   version: '0.1.7',
+silly publish   description: 'PostgreSQL ORM on top of node-postgres',
+silly publish   tags: [ 'orm', 'pg', 'postgres' ],
+silly publish   author: { name: 'Didit Tech', email: 'development@didit.com' },
+silly publish   homepage: 'https://github.com/didit-tech/FastLegS',
+silly publish   dependencies: 
+silly publish    { async: '0.1.18',
+silly publish      expresso: '0.8.1',
+silly publish      pg: '0.6.18',
+silly publish      underscore: '1.3.3' },
+silly publish   devDependencies: { mocha: '1.0.3', 'expect.js': '0.1.2', read: '0.1.0' },
+silly publish   main: 'index',
+silly publish   scripts: { test: 'make test' },
+silly publish   engines: { node: '>= 0.6.17 < 0.7.0' },
+silly publish   licenses: 
+silly publish    [ { type: 'MIT',
+silly publish        url: 'http://github.com/didit-tech/FastLegS/raw/master/LICENSE' } ],
+silly publish   _npmUser: { name: 'didit-tech', email: 'development@didit.com' },
+silly publish   _id: 'FastLegS@0.1.7',
+silly publish   optionalDependencies: {},
+silly publish   _engineSupported: true,
+silly publish   _npmVersion: '1.1.21',
+silly publish   _nodeVersion: 'v0.6.18',
+silly publish   _defaultsLoaded: true,
+silly publish   dist: 
+silly publish    { shasum: '1f582f98b06f560044187190d784f63137b6e9df',
+silly publish      tarball: 'http://registry.npmjs.org/FastLegS/-/FastLegS-0.1.7.tgz' } }
+info prepublish FastLegS@0.1.7
+verbose raw, before any munging FastLegS
+verbose url resolving [ 'https://registry.npmjs.org/', './FastLegS' ]
+verbose url resolved https://registry.npmjs.org/FastLegS
+http PUT https://registry.npmjs.org/FastLegS
+http 401 https://registry.npmjs.org/FastLegS
+ERR! Failed PUT response 401
+ERR! Error: unauthorized Name or password is incorrect.: FastLegS
+ERR!     at Request._callback (/usr/local/lib/node_modules/npm/lib/utils/npm-registry-client/request.js:183:12)
+ERR!     at Request.callback (/usr/local/lib/node_modules/npm/node_modules/request/main.js:119:22)
+ERR!     at Request.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/main.js:605:16)
+ERR!     at Request.emit (events.js:67:17)
+ERR!     at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/request/main.js:564:14)
+ERR!     at IncomingMessage.emit (events.js:88:20)
+ERR!     at HTTPParser.parserOnMessageComplete [as onMessageComplete] (http.js:130:23)
+ERR!     at CleartextStream.socketOnData [as ondata] (http.js:1288:20)
+ERR!     at CleartextStream._push (tls.js:375:27)
+ERR!     at SecurePair.cycle (tls.js:734:20)
+ERR! You may report this log at:
+ERR!     <http://github.com/isaacs/npm/issues>
+ERR! or email it to:
+ERR!     <npm-@googlegroups.com>
+ERR! 
+ERR! System Darwin 10.8.0
+ERR! command "node" "/usr/local/bin/npm" "publish" "https://github.com/didit-tech/FastLegS/tarball/master"
+ERR! cwd /Users/jerkelens/Projects/Didit/FastLegS
+ERR! node -v v0.6.18
+ERR! npm -v 1.1.21
+ERR! message unauthorized Name or password is incorrect.: FastLegS
+verbose exit [ 1, true ]

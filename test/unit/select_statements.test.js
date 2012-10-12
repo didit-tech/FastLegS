@@ -214,6 +214,20 @@ describe('Select statements', function() {
       .to.be("SELECT * FROM \"model_name\" WHERE field NOT IN ($1,$2);");
   });
 
+  it('simple or', function() {
+    expect(Statements.select(model, { '$or': { 'field.equals': 'hi', 'age.equals': 18 } }, {}, []))
+      .to.be("SELECT * FROM \"model_name\" WHERE (field = $1 OR age = $2);");
+  })
+
+  it('complex or', function() {
+    expect(Statements.select(model, { 
+      'name.equals': 'John',
+      '$or': { 'field.equals': 'hi', 'age.equals': 18, 'index.gt': 42 },
+      'email.ne': 'josef@yahoo.com'
+    }, {}, []))
+      .to.be("SELECT * FROM \"model_name\" WHERE name = $1 AND (field = $2 OR age = $3 OR index > $4) AND email <> $5;");
+  })
+
   it('ignores invalid fields', function() {
     expect(Statements.select(model, { 
         'field.in': ['some name', 34], 
