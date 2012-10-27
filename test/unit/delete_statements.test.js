@@ -3,7 +3,8 @@
  */
 
 var expect = require('expect.js');
-var Statements = require('../../lib/fast_legs/statements');
+var StatementsPg = require('../../lib/fast_legs/statements_pg');
+var StatementsMySQL = require('../../lib/fast_legs/statements_mysql');
 
 /**
  * Model stub.
@@ -25,19 +26,19 @@ var model = {
  * Delete statements test.
  */
 
-describe('Delete statements:', function() {
+describe('Delete statements pg:', function() {
   it('deletes all rows', function() {
-    expect(Statements.destroy(model)).to.be("DELETE FROM \"model_name\";");
+    expect(StatementsPg.destroy(model)).to.be("DELETE FROM \"model_name\";");
   });
 
   it('one field for selector', function() {
-    expect(Statements.destroy(model, { 'name': 'awesome sauce' }, [])).to.be(
+    expect(StatementsPg.destroy(model, { 'name': 'awesome sauce' }, [])).to.be(
       "DELETE FROM \"model_name\" WHERE name = $1;"
     );
   });
 
   it('multiple fields for selector', function() {
-    expect(Statements.destroy(model, { 
+    expect(StatementsPg.destroy(model, { 
         'name': 'awesome sauce',
         'email': 'happyman@bluesky.com'
       }, [])).to.be(
@@ -46,7 +47,7 @@ describe('Delete statements:', function() {
   });
 
   it('ignores invalid fields', function() {
-    expect(Statements.destroy(model, {
+    expect(StatementsPg.destroy(model, {
         'name': 'awesome sauce',
         'email': 'happyman@bluesky.com',
         'bad_field': 1000
@@ -56,3 +57,33 @@ describe('Delete statements:', function() {
   });
 })
 
+describe('Delete statements mysql:', function() {
+  it('deletes all rows', function() {
+    expect(StatementsMySQL.destroy(model)).to.be("DELETE FROM model_name;");
+  });
+
+  it('one field for selector', function() {
+    expect(StatementsMySQL.destroy(model, { 'name': 'awesome sauce' }, [])).to.be(
+      "DELETE FROM model_name WHERE name = ?;"
+    );
+  });
+
+  it('multiple fields for selector', function() {
+    expect(StatementsMySQL.destroy(model, { 
+        'name': 'awesome sauce',
+        'email': 'happyman@bluesky.com'
+      }, [])).to.be(
+      "DELETE FROM model_name WHERE name = ? AND email = ?;"
+    );
+  });
+
+  it('ignores invalid fields', function() {
+    expect(StatementsMySQL.destroy(model, {
+        'name': 'awesome sauce',
+        'email': 'happyman@bluesky.com',
+        'bad_field': 1000
+      }, [])).to.be(
+      "DELETE FROM model_name WHERE name = ? AND email = ?;"
+    );
+  });
+})
