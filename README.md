@@ -40,6 +40,8 @@ story.
 
 #Contributors
 
-* Thad Clay (thadclay)
-* Jim Drannbauer (excellentdrums)
-* Rob Malko (malkomalko)
+* Thad Clay ([thadclay](https://github.com/thadclay))
+* Jan Paul Erkelens ([jperkelens](https://github.com/jperkelens))
+* Micah Silverman ([dogeared](https://github.com/dogeared))
+* Rob Malko ([malkomalko](https://github.com/malkomalko))
+* Jim Drannbauer ([excellentdrums](https://github.com/excellentdrums))
