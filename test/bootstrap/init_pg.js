@@ -67,17 +67,17 @@ async.series({
                   function(cb) { client.query(create.comments_post_id_index, cb); }
                 ], function(err, results) {
                   if (!err) {
-                    fs.writeFile('.fastlegs',
+                    fs.writeFile('.fastlegs_pg',
                       JSON.stringify(config),
                     function (err) {
                       client.end();
                       process.exit();
                     });
-                  } else { client.end(); }
+                  } else { console.dir(err); client.end(); }
                 });
               }
             });
-          } else { client.end(); }
+          } else { console.dir(err); client.end(); }
         }
       );
     }
