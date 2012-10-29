@@ -3,8 +3,8 @@
  */
 
 var expect = require('expect.js');
-var StatementsPg = require('../../lib/fast_legs/statements_pg');
-var StatementsMySQL = require('../../lib/fast_legs/statements_mysql');
+var StatementsPg = require('../../lib/fast_legs/pg/statements');
+var StatementsMySQL = require('../../lib/fast_legs/mysql/statements');
 
 /**
  * StatementsPg test.
