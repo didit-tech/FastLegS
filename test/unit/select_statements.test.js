@@ -360,7 +360,7 @@ describe('Select statements mysql:', function() {
         offset: 5
       }, [])).to.be(
       "SELECT index, email FROM model_name WHERE name = ? AND email = ? " +
-      "OFFSET 5;"
+      "LIMIT 100000000 OFFSET 5;"
     );
   });
 
@@ -462,7 +462,7 @@ describe('Select statements mysql:', function() {
 
   it('case insensitive like (ilike)', function() {
     expect(StatementsMySQL.select(model, { 'name.ilike': '%john%' }, {}, []))
-      .to.be("SELECT * FROM model_name WHERE name ILIKE ?;");
+      .to.be("SELECT * FROM model_name WHERE UPPER(name) LIKE UPPER(?);");
   });
 
   it('not case insensitive like (nilike, not_ilike)', function() {

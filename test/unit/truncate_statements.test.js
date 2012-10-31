@@ -44,6 +44,6 @@ describe('Truncate statements mysql:', function() {
 
   it('passes cascading option', function() {
     expect(StatementsMySQL.truncate(model, { cascade: true })).to.be(
-      "TRUNCATE model_name CASCADE;");
+      "TRUNCATE model_name;");
   });
 })

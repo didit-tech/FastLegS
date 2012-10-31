@@ -132,23 +132,21 @@ describe('Integrates', function() {
     })
   });
   
-  /*
-   *it('find a post with advanced include(join) opts', function(done) {
-   *  Post.find({ 'blurb.ilike': '%Some blurb%' }, {
-   *    only: ['id', 'blurb'],
-   *    include: {
-   *      'comments': {
-   *        where: {'published': true },
-   *        only: ['id', 'post_id', 'published'],
-   *        order: ['id']
-   *      }
-   *    }
-   *  }, function(err, results) {
-   *    expect(results[0].comments.length).to.be(2);
-   *    done();
-   *  });
-   *});
-   */
+  it('find a post with advanced include(join) opts', function(done) {
+    Post.find({ 'blurb.ilike': '%Some blurb%' }, {
+      only: ['id', 'blurb'],
+      include: {
+        'comments': {
+          where: {'published': true },
+          only: ['id', 'post_id', 'published'],
+          order: ['id']
+        }
+      }
+    }, function(err, results) {
+      expect(results[0].comments.length).to.be(2);
+      done();
+    });
+  });
   
   it('multiple comments by id', function(done) {
     var ids = _.pluck(comments, 'id');
@@ -194,16 +192,14 @@ describe('Integrates', function() {
     });
   });
   
-  /*
-   *it('find using in clause with multiple items', function(done) {
-   *  Post.find({
-   *    'title.in': ['Some Title 1', 'Some Title 2']
-   *  }, function(err, results) {
-   *    expect(results.length).to.be(2);
-   *    done();
-   *  });
-   *});
-   */
+  it('find using in clause with multiple items', function(done) {
+    Post.find({
+      'title.in': ['Some Title 1', 'Some Title 2']
+    }, function(err, results) {
+      expect(results.length).to.be(2);
+      done();
+    });
+  });
 
   it('find using nin clause with one item', function(done) {
     Post.find({
@@ -214,16 +210,14 @@ describe('Integrates', function() {
     });
   });
 
-  /*
-   *it('find using nin clause with multiple items', function(done) {
-   *  Post.find({
-   *    'title.nin': ['Some Title 1', 'Some Title 2']
-   *  }, function(err, results) {
-   *    expect(results.length).to.be(2);
-   *    done();
-   *  });
-   *});
-   */
+  it('find using nin clause with multiple items', function(done) {
+    Post.find({
+      'title.nin': ['Some Title 1', 'Some Title 2']
+    }, function(err, results) {
+      expect(results.length).to.be(2);
+      done();
+    });
+  });
 
   it('find using not_in clause with one item', function(done) {
     Post.find({
@@ -234,16 +228,14 @@ describe('Integrates', function() {
     });
   });
 
-  /*
-   *it('find using not_in clause with multiple items', function(done) {
-   *  Post.find({
-   *    'title.nin': ['Some Title 1', 'Some Title 2']
-   *  }, function(err, results) {
-   *    expect(results.length).to.be(2);
-   *    done();
-   *  });
-   *});
-   */
+  it('find using not_in clause with multiple items', function(done) {
+    Post.find({
+      'title.nin': ['Some Title 1', 'Some Title 2']
+    }, function(err, results) {
+      expect(results.length).to.be(2);
+      done();
+    });
+  });
 
   it('findOne comment via a basic selector', function(done) {
     Comment.findOne({ 'comment':'Comment 5' }, function(err, comment) {
@@ -297,15 +289,13 @@ describe('Integrates', function() {
     });
   });
 
-  /*
-   *it('find last 2 post ids using offset', function(done) {
-   *  Post.find({}, { only: ['id'], offset: 2 }, function(err, results) {
-   *    expect(results[0].id, posts[2].id);
-   *    expect(results[1].id, posts[3].id);
-   *    done();
-   *  })
-   *});
-   */
+  it('find last 2 post ids using offset', function(done) {
+    Post.find({}, { only: ['id'], offset: 2 }, function(err, results) {
+      expect(results[0].id, posts[2].id);
+      expect(results[1].id, posts[3].id);
+      done();
+    })
+  });
 
   it('find with order and limit', function(done) {
     Post.find({}, {
@@ -318,20 +308,18 @@ describe('Integrates', function() {
     })
   });
   
-  /*
-   *it('find with order and offset', function(done) {
-   *  Post.find({}, {
-   *    only: ['id'],
-   *    order: ['-id'],
-   *    offset: 1
-   *  }, function(err, results) {
-   *    expect(results[0].id, posts[2].id);
-   *    expect(results[1].id, posts[1].id);
-   *    expect(results[2].id, posts[0].id);
-   *    done();
-   *  })
-   *});
-   */
+  it('find with order and offset', function(done) {
+    Post.find({}, {
+      only: ['id'],
+      order: ['-id'],
+      offset: 1
+    }, function(err, results) {
+      expect(results[0].id, posts[2].id);
+      expect(results[1].id, posts[1].id);
+      expect(results[2].id, posts[0].id);
+      done();
+    })
+  });
 
   it('find with order, offset and limit', function(done) {
     Post.find({}, {
@@ -378,14 +366,12 @@ describe('Integrates', function() {
     });
   });
 
-
   it('destroy comment by primary key', function(done) {
     Comment.destroy(8, function(err, results) {
       expect(results).to.be(1);
       done();
     });
   });
-
 
   it('destroys multiple comments by primary key', function(done) {
     Comment.destroy([7, 6], function(err, results) {
@@ -436,22 +422,20 @@ describe('Integrates', function() {
     });
   });
 
-/*
- *  it('finds nothing', function(done) {
- *    var ids = _.pluck(posts, 'id');
- *    Post.find(ids, function(err, results) {
- *      expect(results).to.be.empty;
- *      done();
- *    });
- *  });
- *
- *  it('finds nothing', function(done) {
- *    Post.find(posts[0].id, function(err, results) {
- *      expect(results).to.be(null);
- *      done();
- *    });
- *  });
- */
+  it('finds nothing', function(done) {
+    var ids = _.pluck(posts, 'id');
+    Post.find(ids, function(err, results) {
+      expect(results).to.be.empty;
+      done();
+    });
+  });
+
+  it('finds nothing', function(done) {
+    Post.find(posts[0].id, function(err, results) {
+      expect(results).to.be(null);
+      done();
+    });
+  });
 
   it('finds no posts with bad selector', function(done) {
     Post.find({ 'bad_field': 12 }, function(err, results) {
