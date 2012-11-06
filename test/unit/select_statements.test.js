@@ -293,6 +293,15 @@ describe('Select statements pg:', function() {
         "WHERE to_tsvector('english', name) @@ to_tsquery('english', $1);"
     );
   });
+  
+  it('gets count only with complex or', function() {
+    expect(StatementsPg.select(model, {
+      'name.equals': 'John',
+      '$or': { 'field.equals': 'hi', 'age.equals': 18, 'index.gt': 42 },
+      'email.ne': 'josef@yahoo.com'
+    }, { count: true }, []))
+      .to.be("SELECT COUNT(*) AS count FROM \"model_name\" WHERE name = $1 AND (field = $2 OR age = $3 OR index > $4) AND email <> $5;");
+  })
 })
 
 describe('Select statements mysql:', function() { 
@@ -566,4 +575,13 @@ describe('Select statements mysql:', function() {
         "WHERE to_tsvector('english', name) @@ to_tsquery('english', ?);"
     );
   });
+
+  it('gets count only with complex or', function() {
+    expect(StatementsMySQL.select(model, {
+      'name.equals': 'John',
+      '$or': { 'field.equals': 'hi', 'age.equals': 18, 'index.gt': 42 },
+      'email.ne': 'josef@yahoo.com'
+    }, { count: true }, []))
+      .to.be("SELECT COUNT(*) AS count FROM model_name WHERE name = ? AND (field = ? OR age = ? OR index > ?) AND email <> ?;");
+  })
 })

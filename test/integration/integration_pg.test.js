@@ -198,6 +198,15 @@ describe('Integrates', function() {
       done();
     });
   });
+  
+  it('find count using in clause with multiple items', function(done) {
+    Post.find({
+      'title.in': ['Some Title 1', 'Some Title 2']
+    }, { count: true }, function(err, result) {
+      expect(result.count).to.be(2);
+      done();
+    });
+  });
 
   it('find using nin clause with one item', function(done) {
     Post.find({
