@@ -234,6 +234,14 @@ describe('Integrates', function() {
     });
   });
 
+  it('find using the or clause', function(done) { 
+    Post.find({ '$or': { 'id.equals': 1, 'blurb.equals': 'Some blurb 3' }},
+    function(err, results) {
+      expect(results.length).to.be(2);
+      done();   
+    });
+  })
+
   it('findOne comment via a basic selector', function(done) {
     Comment.findOne({ 'comment':'Comment 5' }, function(err, comment) {
       expect(comment.comment).to.be('Comment 5');
@@ -317,6 +325,7 @@ describe('Integrates', function() {
       done();
     })
   });
+
   it('find with order, offset and limit', function(done) {
     Post.find({}, {
       only: ['id'],
