@@ -360,93 +360,111 @@ describe('Integrates', function() {
     });
   });
 
-  it('updates new post title with weird characters', function(done) {
-    var newTitle = '"\'pants';
-    Post.update(4, {'title' : newTitle}, function(er, results) {
+  it('updates post blurb to null', function(done) { 
+    Post.update({ 'id': 4 }, {
+      'blurb': null
+    }, function(err, results) {
       expect(results).to.be(1);
-      Post.findOne(4, function(err, post) {
-        expect(post.title).to.be(newTitle);
-        done();
-      });
+      done();
     });
+  });
+
+  it('sets comment created at date to null', function(done) { 
+    Comment.update({ 'id': 8 }, { 
+      'created_at': null 
+    }, function(err, result) { 
+      expect(result).to.be(1);
+      done();
+    });
+  });
+
+  it('updates new post title with weird characters', function(done) {
+   var newTitle = '"\'pants';
+   Post.update(4, {'title' : newTitle}, function(er, results) {
+     expect(results).to.be(1);
+     Post.findOne(4, function(err, post) {
+       expect(post.title).to.be(newTitle);
+       done();
+     });
+   });
   });
 
   it('destroy comment by primary key', function(done) {
-    Comment.destroy(8, function(err, results) {
-      expect(results).to.be(1);
-      done();
-    });
+   Comment.destroy(8, function(err, results) {
+     expect(results).to.be(1);
+     done();
+   });
   });
 
   it('destroys multiple comments by primary key', function(done) {
-    Comment.destroy([7, 6], function(err, results) {
-      expect(results).to.be(2);
-      done();
-    });
+   Comment.destroy([7, 6], function(err, results) {
+     expect(results).to.be(2);
+     done();
+   });
   });
 
   it('destroys comments via a basic selector', function(done) {
-    Comment.destroy({ 'comment':'Comment 5' }, function(err, results) {
-      expect(results).to.be(1);
-      done();
-    });
+   Comment.destroy({ 'comment':'Comment 5' }, function(err, results) {
+     expect(results).to.be(1);
+     done();
+   });
   });
 
   it('destroys all comments', function(done) {
-    Comment.destroy(function(err, results) {
-      expect(results).to.be(4);
-      done();
-    });
+   Comment.destroy(function(err, results) {
+     expect(results).to.be(4);
+     done();
+   });
   });
 
   it('destroys nothing via empty selector', function(done) {
-    Comment.destroy(function(err, results) {
-      expect(results).to.be(0);
-      done();
-    });
+   Comment.destroy(function(err, results) {
+     expect(results).to.be(0);
+     done();
+   });
   });
 
   it('destroys nothing via empty array', function(done) {
-    Comment.destroy([], function(err, results) {
-      expect(results).to.be(0);
-      done();
-    });
+   Comment.destroy([], function(err, results) {
+     expect(results).to.be(0);
+     done();
+   });
   });
 
   it('destroys nothing via bad selector', function(done) {
-    Comment.destroy({ 'bad_field': 3 }, function(err, results) {
-      expect(results).to.be(0);
-      done();
-    });
+   Comment.destroy({ 'bad_field': 3 }, function(err, results) {
+     expect(results).to.be(0);
+     done();
+   });
   });
 
   it('truncate', function(done) {
-    Post.truncate({ cascade: true }, function(err, results) {
-      expect(results).to.be(true);
-      done();
-    });
+   Post.truncate({ cascade: true }, function(err, results) {
+     expect(results).to.be(true);
+     done();
+   });
   });
 
   it('finds nothing', function(done) {
-    var ids = _.pluck(posts, 'id');
-    Post.find(ids, function(err, results) {
-      expect(results).to.be.empty;
-      done();
-    });
+   var ids = _.pluck(posts, 'id');
+   Post.find(ids, function(err, results) {
+     expect(results).to.be.empty;
+     done();
+   });
   });
 
   it('finds nothing', function(done) {
-    Post.find(posts[0].id, function(err, results) {
-      expect(results).to.be(null);
-      done();
-    });
+   Post.find(posts[0].id, function(err, results) {
+     expect(results).to.be(null);
+     done();
+   });
   });
 
   it('finds no posts with bad selector', function(done) {
-    Post.find({ 'bad_field': 12 }, function(err, results) {
-      expect(results).to.be.empty;
-      done();
-    });
+   Post.find({ 'bad_field': 12 }, function(err, results) {
+     expect(results).to.be.empty;
+     done();
+   });
   });
 
   after(function(done) {

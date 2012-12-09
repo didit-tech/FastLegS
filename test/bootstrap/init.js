@@ -19,7 +19,7 @@ var create = {
   id integer NOT NULL,\
   post_id integer NOT NULL,\
   comment text NOT NULL,\
-  created_at date,\
+  created_at timestamp,\
   CONSTRAINT comments_pkey PRIMARY KEY (id))",
   "comments_post_id_index":
 "CREATE INDEX comments_post_id \
