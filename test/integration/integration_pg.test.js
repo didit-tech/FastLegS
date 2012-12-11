@@ -5,7 +5,7 @@
 var expect = require('expect.js');
 var helper = require('../test_helper.js');
 var fs = require('fs');
-var FastLegS = require('../../../FastLegS');
+var fl = require('../../../FastLegS');
 var async = require('async');
 var _ = require('underscore')._;
 
@@ -19,7 +19,7 @@ var logging = false;
  * Integration test.
  */
 
-  var config = fs.readFileSync(__dirname + '/../../.fastlegs', 'utf8');
+  var config = fs.readFileSync(__dirname + '/../../.fastlegs_pg', 'utf8');
   config = JSON.parse(config);
 
   var connParams = {
@@ -30,6 +30,7 @@ var logging = false;
     , port:     config.port
   };
 
+  var FastLegS = new fl('pg');
   FastLegS.connect(connParams);
 
   var posts = [
@@ -194,6 +195,15 @@ describe('Integrates', function() {
       'title.in': ['Some Title 1', 'Some Title 2']
     }, function(err, results) {
       expect(results.length).to.be(2);
+      done();
+    });
+  });
+  
+  it('find count using in clause with multiple items', function(done) {
+    Post.find({
+      'title.in': ['Some Title 1', 'Some Title 2']
+    }, { count: true }, function(err, result) {
+      expect(result.count).to.be(2);
       done();
     });
   });

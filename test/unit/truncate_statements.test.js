@@ -3,7 +3,8 @@
  */
 
 var expect = require('expect.js');
-var Statements = require('../../lib/fast_legs/statements');
+var StatementsPg = require('../../lib/fast_legs/pg/statements');
+var StatementsMySQL = require('../../lib/fast_legs/mysql/statements');
 
 /**
  * Model stub.
@@ -25,14 +26,24 @@ var model = {
  * Truncate statements test.
  */
 
-describe('Truncate statements:', function() {
+describe('Truncate statements pg:', function() {
   it('truncates all records', function() {
-    expect(Statements.truncate(model)).to.be("TRUNCATE \"model_name\";");
+    expect(StatementsPg.truncate(model)).to.be("TRUNCATE \"model_name\";");
   });
 
   it('passes cascading option', function() {
-    expect(Statements.truncate(model, { cascade: true })).to.be(
+    expect(StatementsPg.truncate(model, { cascade: true })).to.be(
       "TRUNCATE \"model_name\" CASCADE;");
   });
 })
 
+describe('Truncate statements mysql:', function() {
+  it('truncates all records', function() {
+    expect(StatementsMySQL.truncate(model)).to.be("TRUNCATE model_name;");
+  });
+
+  it('passes cascading option', function() {
+    expect(StatementsMySQL.truncate(model, { cascade: true })).to.be(
+      "TRUNCATE model_name;");
+  });
+})

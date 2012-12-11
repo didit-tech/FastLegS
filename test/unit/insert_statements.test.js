@@ -3,7 +3,8 @@
  */
 
 var expect = require('expect.js');
-var Statements = require('../../lib/fast_legs/statements');
+var StatementsPg = require('../../lib/fast_legs/pg/statements');
+var StatementsMySQL = require('../../lib/fast_legs/mysql/statements');
 
 /**
  * Model stub.
@@ -25,11 +26,11 @@ var model = {
  * Insert statements test.
  */
 
-describe('Insert statements:', function() { 
+describe('Insert statements pg:', function() { 
   it('basic with all valid fields', function() { 
     var obj = { index: '1234', name: 'Joseph' };
 
-    expect(Statements.insert(model, obj, [])).to.be(
+    expect(StatementsPg.insert(model, obj, [])).to.be(
       "INSERT INTO \"model_name\"(index,name) " +
       "VALUES($1,$2) RETURNING *;"
     );
@@ -44,10 +45,34 @@ describe('Insert statements:', function() {
       age: 8
     };
 
-    expect(Statements.insert(model, obj, [])).to.be(
+    expect(StatementsPg.insert(model, obj, [])).to.be(
       "INSERT INTO \"model_name\"(email,name,age) " +
       "VALUES($1,$2,$3) RETURNING *;"
     );
   });
 })
 
+describe('Insert statements mysql:', function() { 
+  it('basic with all valid fields', function() { 
+    var obj = { index: '1234', name: 'Joseph' };
+
+    expect(StatementsMySQL.insert(model, obj, [])).to.be(
+      "INSERT INTO model_name (index, name) VALUES (?, ?);"
+    );
+  })
+
+  
+  it('ignore invalid fields', function() {
+    var obj = {
+      bad_field: 'abcdef',
+      email: 'bob@email.com',
+      name: 'Bob',
+      age: 8
+    };
+
+    expect(StatementsMySQL.insert(model, obj, [])).to.be(
+      "INSERT INTO model_name (email, name, age) " +
+      "VALUES (?, ?, ?);"
+    );
+  });
+})
