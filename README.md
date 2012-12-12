@@ -9,7 +9,9 @@ PostgreSQL ORM on top of node-postgres.
 
 ##Quickstart
 
-**NOTE:** As of version```0.2.0```, both PostgreSQL and MySQL are supported. You indicate which database you are using at object instantiation time. All other operations and interfaces behave the same as older versions.
+**NOTE:** As of version```0.2.0```, both PostgreSQL and MySQL are supported. 
+You indicate which database you are using at object instantiation time. All 
+other operations and interfaces behave the same as older versions.
 
 ### Setup for versions < ```0.2.0```
 
@@ -58,11 +60,18 @@ PostgreSQL ORM on top of node-postgres.
       primaryKey: 'id'
     });
 
-    Post.create({ title: 'Some Title 1', body: 'Some body 1' }, function(err, results) {
-      Post.find({ 'title.ilike': '%title%' }, { only: ['id', 'body'] }, function(err, post) {
-        // Hooray!
-      });
-    });
+    Post.create(
+      { title: 'Some Title 1', body: 'Some body 1' }, 
+      function(err, results) {
+        Post.find(
+          { 'title.ilike': '%title%' }, 
+          { only: ['id', 'body'] }, 
+          function(err, post) {
+            // Hooray!
+          }
+        );
+      }
+    );
 
 #The Full Monty
 
@@ -136,7 +145,8 @@ Calls to ```create``` can take an object or an array of objects.
       callback
     )
 
-The ```results``` passed to the callback are different depending on the database.
+The ```results``` passed to the callback are different depending on the 
+database.
 
 In the case of PostgreSQL, the ```results``` will be an object of the form:
 
@@ -164,7 +174,8 @@ In the case of MySQL, the ```results``` will be an object of the form:
 
 ##Read
 
-The various forms of the ```find``` command are very flexible. We'll present a few of them here.
+The various forms of the ```find``` command are very flexible. We'll present a 
+few of them here.
 
 ####All:
 
@@ -315,9 +326,14 @@ outputs:
 
 ##Summary
 
-The tests are an excellent reference for the various modifiers and syntactic
+The tests are an excellent reference for the various modifiers and syntactic 
 sugar you can use in FastLegS.
 
 ##ToDo
 
-Watch for updates to examples in the near future to show features like relationships and advanced queries.
+Right now, the codebase is split because of syntactic differences between 
+PostgreSQL and MySQL. There is a lot of duplicated code, however. Future 
+versions should abstract out the differences and merge the duplicated code.
+
+Watch for updates to examples in the near future to show features like 
+relationships and advanced queries.
