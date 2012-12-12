@@ -1,6 +1,5 @@
 SHELL := /bin/bash
 
-node-command := xargs -n 1 -I file expresso file
 file=*.test.js
 unit_files=`find test/unit -name '$(file)' -type f -print0 | xargs -0 echo`
 integration_files=`find test/integration -name '$(file)' -type f -print0 | xargs -0 echo`

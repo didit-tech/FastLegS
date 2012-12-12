@@ -446,28 +446,22 @@ _.each(['mysql', 'pg'], function(db) {
     }
 
     it('finds many to many', function(done) {
-      models.Professor.find(
-        {},
-        {include: { students: {} }},
-        function(err, results) {
-          _.each(results, function(result) {
-            validateM2M(result)
-          })
-          done()
-        }
-      )
-    })
+      var options = { include: { students: {} } };
+      models.Professor.find({}, options, function(err, results) {
+        _.each(results, function(result) {
+          validateM2M(result)
+        });
+        done();
+     });
+    });
 
     it('finds many to many by id', function(done) {
-      models.Professor.findOne(
-        9,
-        {include: { students: {} }},
-        function(err, result) {
-          validateM2M(result)
-          done()
-        }
-      )
-    })
+      var options = { include: { students: {} } };
+      models.Professor.findOne(9, options, function(err, result) {
+        validateM2M(result);
+        done();
+      });
+    });
 
     after(function(done) {
       FastLegS.client.disconnect();
@@ -475,3 +469,4 @@ _.each(['mysql', 'pg'], function(db) {
     });
   })
 })
+
