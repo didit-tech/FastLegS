@@ -23,56 +23,50 @@ var model = {
 };
 
 /**
+ * Fixtures
+ */
+
+var flatHappy = { index: '1234', name: 'Joseph' };
+var flatBadField = { bad_field: 'abcdef', email: 'bob@email.com', name: 'Bob', age: 8 };
+var arrayHappy = [flatHappy];
+var arrayBadField =  [flatBadField];
+
+/**
  * Insert statements test.
  */
 
 describe('Insert statements pg:', function() { 
   it('basic with all valid fields', function() { 
-    var obj = { index: '1234', name: 'Joseph' };
-
-    expect(StatementsPg.insert(model, obj, [])).to.be(
-      "INSERT INTO \"model_name\"(index,name) " +
+    var expected = "INSERT INTO \"model_name\"(index,name) " +
       "VALUES($1,$2) RETURNING *;"
-    );
+
+    expect(StatementsPg.insert(model, flatHappy, [])).to.be(expected);
+    expect(StatementsPg.insert(model, arrayHappy, [])).to.be(expected);
   })
 
   
   it('ignore invalid fields', function() {
-    var obj = {
-      bad_field: 'abcdef',
-      email: 'bob@email.com',
-      name: 'Bob',
-      age: 8
-    };
-
-    expect(StatementsPg.insert(model, obj, [])).to.be(
-      "INSERT INTO \"model_name\"(email,name,age) " +
+    var expected = "INSERT INTO \"model_name\"(email,name,age) " +
       "VALUES($1,$2,$3) RETURNING *;"
-    );
+
+    expect(StatementsPg.insert(model, flatBadField, [])).to.be(expected);
+    expect(StatementsPg.insert(model, arrayBadField, [])).to.be(expected);
   });
 })
 
 describe('Insert statements mysql:', function() { 
   it('basic with all valid fields', function() { 
-    var obj = { index: '1234', name: 'Joseph' };
+    var expected = "INSERT INTO model_name(index,name) VALUES(?,?);"
 
-    expect(StatementsMySQL.insert(model, obj, [])).to.be(
-      "INSERT INTO model_name (index, name) VALUES (?, ?);"
-    );
+    expect(StatementsMySQL.insert(model, flatHappy, [])).to.be(expected);
+    expect(StatementsMySQL.insert(model, arrayHappy, [])).to.be(expected);
   })
 
   
   it('ignore invalid fields', function() {
-    var obj = {
-      bad_field: 'abcdef',
-      email: 'bob@email.com',
-      name: 'Bob',
-      age: 8
-    };
-
-    expect(StatementsMySQL.insert(model, obj, [])).to.be(
-      "INSERT INTO model_name (email, name, age) " +
-      "VALUES (?, ?, ?);"
-    );
+    var expected = "INSERT INTO model_name(email,name,age) " +
+      "VALUES(?,?,?);"
+    expect(StatementsMySQL.insert(model, flatBadField, [])).to.be(expected);
+    expect(StatementsMySQL.insert(model, arrayBadField, [])).to.be(expected);
   });
 })
