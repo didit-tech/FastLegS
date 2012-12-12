@@ -28,7 +28,9 @@
         </ul>
       </header>
       <section>
-        <h1>FastLegS</h1>
+        <p><a href="http://travis-ci.org/didit-tech/FastLegS"><img src="https://secure.travis-ci.org/didit-tech/FastLegS.png" alt="Build Status"></a></p>
+
+<h1>FastLegS</h1>
 
 <p>PostgreSQL ORM on top of node-postgres.</p>
 
@@ -39,7 +41,44 @@
 
 <h2>Quickstart</h2>
 
+<p><strong>NOTE:</strong> As of version<code>0.2.0</code>, both PostgreSQL and MySQL are supported. You indicate which database you are using at object instantiation time. All other operations and interfaces behave the same as older versions.</p>
+
+<h3>Setup for versions &lt; <code>0.2.0</code>
+</h3>
+
 <pre><code>var FastLegS = require('FastLegS');
+...
+FastLegS.connect(connectionParams);
+...
+</code></pre>
+
+<h3>Setup for versions &gt;= <code>0.2.0</code>
+</h3>
+
+<h3>MySQL:</h3>
+
+<pre><code>var FastLegSBase = require('FastLegS');
+var FastLegS = new FastLegSBase('mysql');
+...
+FastLegS.connect(connectionParams);
+...
+</code></pre>
+
+<h3>PostgreSQL:</h3>
+
+<pre><code>var FastLegSBase = require('FastLegS');
+var FastLegS = new FastLegSBase('pg');
+...
+FastLegS.connect(connectionParams);
+...
+</code></pre>
+
+<h3>Example:</h3>
+
+<pre><code>var FastLegSBase = require('FastLegS');
+
+// gonna use PostgreSQL
+var FastLegS = new FastLegSBase('pg');
 
 var connectionParams = {
   user: 'shes'
@@ -65,17 +104,353 @@ Post.create({ title: 'Some Title 1', body: 'Some body 1' }, function(err, result
 
 <h1>The Full Monty</h1>
 
-<p>For the time being while we are writing up the most awesome README you've
-ever seen, why don't you try checking out our amazing tests for the full
-story.</p>
+<p>The following examples use these database tables as examples:</p>
 
-<h1>Contributors</h1>
+<h3>posts</h3>
 
-<ul>
-<li>Thad Clay (thadclay)</li>
-<li>Jim Drannbauer (excellentdrums)</li>
-<li>Rob Malko (malkomalko)</li>
-</ul>
+<table>
+<tr>
+<th>id</th>
+<th>title</th>
+<th>blurb</th>
+<th>body</th>
+<th>published</th>
+</tr>
+<tr>
+<td>1</td>
+<td>Some Title 1</td>
+<td>Some blurb 1</td>
+<td>Some body 1</td>
+<td>false</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Some Title 1</td>
+<td>Some blurb 2</td>
+<td>Some body 2</td>
+<td>true</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Some Title 1</td>
+<td>Some blurb 3</td>
+<td>Some body 3</td>
+<td>false</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Some Title 1</td>
+<td>Some blurb 4</td>
+<td>Some body 4</td>
+<td>true</td>
+</tr>
+</table><h3>comments</h3>
+
+<table>
+<tr>
+<th>id</th>
+<th>post_id</th>
+<th>comment</th>
+<th>created_at</th>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>Comment 1</td>
+<td>2012-12-11</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>Comment 2</td>
+<td>2012-12-11</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>Comment 3</td>
+<td>2012-12-11</td>
+</tr>
+<tr>
+<td>4</td>
+<td>2</td>
+<td>Comment 4</td>
+<td>2012-12-11</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3</td>
+<td>Comment 5</td>
+<td>2012-12-11</td>
+</tr>
+<tr>
+<td>6</td>
+<td>3</td>
+<td>Comment 6</td>
+<td>2012-12-11</td>
+</tr>
+<tr>
+<td>7</td>
+<td>4</td>
+<td>Comment 7</td>
+<td>2012-12-11</td>
+</tr>
+<tr>
+<td>8</td>
+<td>4</td>
+<td>Comment 8</td>
+<td>2012-12-11</td>
+</tr>
+</table><p>Given this setup:</p>
+
+<pre><code>var FastLegSBase = require('FastLegS');
+
+// gonna use PostgreSQL
+var FastLegS = new FastLegSBase('pg');
+
+var connectionParams = {
+  user: 'shes', password: 'got',
+  database: 'legs', host: 'localhost', port: 5432
+}
+
+FastLegS.connect(connectionParams);
+
+var callback = function(err, results) {
+  console.dir(err);
+  console.dir(results);
+}
+
+var Comment = FastLegS.Base.extend({
+  tableName: 'comments',
+  primaryKey: 'id'
+});
+
+var Post = FastLegS.Base.extend({
+  tableName: 'posts',
+  primaryKey: 'id'
+});
+</code></pre>
+
+<p>The following are examples of basic CRUD operations:</p>
+
+<h2>Create</h2>
+
+<p>Calls to <code>create</code> can take an object or an array of objects.</p>
+
+<pre><code>Post.create(
+  { id: 5, title: 'Some Title 5', body: 'Some body 5' },
+  callback
+)
+
+Post.create(
+  [{ id: 6, title: 'Some Title 6', body: 'Some body 6' },
+   { id: 7, title: 'Some Title 7', body: 'Some body 7' }],
+  callback
+)
+</code></pre>
+
+<p>The <code>results</code> passed to the callback are different depending on the database.</p>
+
+<p>In the case of PostgreSQL, the <code>results</code> will be an object of the form:</p>
+
+<pre><code>{
+  rows: [{ id: 5,
+         title: 'Some Title 5',
+         blurb: null,
+         body: 'Some body 5',
+         published: null }],
+  command: INSERT,
+  rowCount: 1,
+  oid: 0
+}
+</code></pre>
+
+<p>In the case of MySQL, the <code>results</code> will be an object of the form:</p>
+
+<pre><code>{
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 2,
+  warningCount: 0,
+  message: ''
+}
+</code></pre>
+
+<h2>Read</h2>
+
+<p>The various forms of the <code>find</code> command are very flexible. We'll present a few of them here.</p>
+
+<h4>All:</h4>
+
+<pre><code>Post.find({}, callback)
+</code></pre>
+
+<p>outputs:</p>
+
+<pre><code>[ 
+  { id: 1,
+    title: 'Some Title 1',
+    blurb: null,
+    body: 'Some body 1',
+    published: null,
+    created_at: null,
+    updated_at: null },
+  ...
+  { id: 5,
+    title: 'Some Title 5',
+    blurb: null,
+    body: 'Some body 5',
+    published: null,
+    created_at: null,
+    updated_at: null },
+  { id: 6,
+    title: 'Some Title 6',
+    blurb: null,
+    body: 'Some body 6',
+    published: null,
+    created_at: null,
+    updated_at: null },
+  { id: 7,
+    title: 'Some Title 7',
+    blurb: null,
+    body: 'Some body 7',
+    published: null,
+    created_at: null,
+    updated_at: null } 
+]
+</code></pre>
+
+<h4>By primary key:</h4>
+
+<pre><code>Post.find(6, callback)
+</code></pre>
+
+<p>outputs:</p>
+
+<pre><code>{
+  id: 6,
+  title: 'Some Title 6',
+  blurb: null,
+  body: 'Some body 6',
+  published: null,
+  created_at: null,
+  updated_at: null
+}
+</code></pre>
+
+<h4>Only show some fields:</h4>
+
+<pre><code>Post.find(6, {only: ['id','title']}, callback)
+</code></pre>
+
+<p>outputs:</p>
+
+<pre><code>{ id: 6, title: 'Some Title 6' }
+</code></pre>
+
+<h4>Some clauses:</h4>
+
+<pre><code>Post.find({'title.like': 'Some%'}, callback)
+Post.find({'id.in': [6, 7]}, callback)
+Post.find({'id.nin': [6]}, callback)
+Post.find({'$or': {'id.equals': 5, 'body.like': '%body 7'}}, callback)
+</code></pre>
+
+<h4>Order, offset, limit</h4>
+
+<pre><code>Post.find({}, { order: ['-id'] }, callback)
+Post.find({}, { offset: 1, limit: 1 }, callback)
+</code></pre>
+
+<h4>Count:</h4>
+
+<pre><code>Post.find({}, {count: true}, callback)
+</code></pre>
+
+<p>outputs:</p>
+
+<pre><code>{ count: 7 }
+</code></pre>
+
+<h2>Update</h2>
+
+<pre><code>Post.update(
+  { title: 'Some Title 6' },
+  { title: 'Renamed title' },
+  callback
+)
+</code></pre>
+
+<h2>Delete</h2>
+
+<pre><code>Post.destroy({ 'id.in': [5, 7]}, callback)
+Post.truncate(callback)
+</code></pre>
+
+<h2>A Taste of Relationships</h2>
+
+<p>You can call out relationships when you extend FastLegS.Base:</p>
+
+<pre><code>var Post = FastLegS.Base.extend({
+  tableName: 'posts',
+  primaryKey: 'id',
+  many: [
+    { 'comments': Comment, joinOn: 'post_id' }
+  ]
+});
+</code></pre>
+
+<p>You can then create complex object relationships with join logic:</p>
+
+<pre><code>Post.find(
+  {}, 
+  { include: { comments: { only: ['id', 'comment'] } } },
+  callback
+)
+</code></pre>
+
+<p>outputs:</p>
+
+<pre><code>[
+  {
+      body: 'Some body 1',
+      title: 'Some Title 1',
+      id: 1,
+      updated_at: null,
+      published: false,
+      blurb: 'Some blurb 1',
+      created_at: null,
+      comments: [
+          { id: 1, comment: 'Comment 1' },
+          { id: 2, comment: 'Comment 2' }
+      ]
+  },
+  {
+      body: 'Some body 2',
+      title: 'Some Title 2',
+      id: 2,
+      updated_at: null,
+      published: true,
+      blurb: null,
+      created_at: null,
+      comments: [
+          { id: 3, comment: 'Comment 3' },
+          { id: 4, comment: 'Comment 4' }
+      ]
+  },
+  ...
+]
+</code></pre>
+
+<h2>Summary</h2>
+
+<p>The tests are an excellent reference for the various modifiers and syntactic
+sugar you can use in FastLegS.</p>
+
+<h2>ToDo</h2>
+
+<p>Watch for updates to examples in the near future to show features like relationships and advanced queries.</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/didit-tech">didit-tech</a></p>
