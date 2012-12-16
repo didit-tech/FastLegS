@@ -4,7 +4,7 @@ var fs = require('fs')
   , read = require('read')
 
 var create = {
-  "posts":
+posts:
 "CREATE TABLE posts (\
   id integer NOT NULL,\
   title character varying(255) NOT NULL,\
@@ -14,18 +14,32 @@ var create = {
   created_at date,\
   updated_at date,\
   CONSTRAINT posts_pkey PRIMARY KEY (id))",
-  "comments":
+comments:
 "CREATE TABLE comments (\
   id integer NOT NULL,\
   post_id integer NOT NULL,\
   comment text NOT NULL,\
   created_at timestamp,\
   CONSTRAINT comments_pkey PRIMARY KEY (id))",
-  "comments_post_id_index":
+comments_post_id_index:
 "CREATE INDEX comments_post_id \
   ON comments\
   USING btree\
-  (post_id)"
+  (post_id)",
+students:
+"CREATE TABLE students (\
+  id integer NOT NULL,\
+  name character varying(255) NOT NULL,\
+  CONSTRAINT students_pkey PRIMARY KEY (id))",
+professors:
+"CREATE TABLE professors (\
+  id integer NOT NULL,\
+  name character varying(255) NOT NULL,\
+  CONSTRAINT professors_pkey PRIMARY KEY (id))",
+student_professor:
+"CREATE TABLE student_professor (\
+  student_id integer NOT NULL,\
+  professor_id integer NOT NULL)" 
 };
 
 console.log("\nFastLegS - Please enter your Postgres credentials " +
@@ -64,7 +78,10 @@ async.series({
                 async.series([
                   function(cb) { client.query(create.posts, cb); },
                   function(cb) { client.query(create.comments, cb); },
-                  function(cb) { client.query(create.comments_post_id_index, cb); }
+                  function(cb) { client.query(create.comments_post_id_index, cb); },
+                  function(cb) { client.query(create.students, cb); },
+                  function(cb) { client.query(create.professors, cb); },
+                  function(cb) { client.query(create.student_professor, cb); }
                 ], function(err, results) {
                   if (!err) {
                     fs.writeFile('.fastlegs_pg',

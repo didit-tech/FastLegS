@@ -4,7 +4,7 @@ var fs = require('fs')
   , read = require('read')
 
 var create = {
-  "posts":
+posts:
 "CREATE TABLE posts (\
   id integer NOT NULL,\
   title character varying(255) NOT NULL,\
@@ -14,17 +14,31 @@ var create = {
   created_at date,\
   updated_at date,\
   CONSTRAINT posts_pkey PRIMARY KEY (id))",
-  "comments":
+comments:
 "CREATE TABLE comments (\
   id integer NOT NULL,\
   post_id integer NOT NULL,\
   comment text NOT NULL,\
   created_at date,\
   CONSTRAINT comments_pkey PRIMARY KEY (id))",
-  "comments_post_id_index":
+comments_post_id_index:
 "CREATE INDEX comments_post_id \
   ON comments (post_id) \
-  USING BTREE" 
+  USING BTREE",
+students:
+"CREATE TABLE students (\
+  id integer NOT NULL,\
+  name character varying(255) NOT NULL,\
+  CONSTRAINT students_pkey PRIMARY KEY (id))",
+professors:
+"CREATE TABLE professors (\
+  id integer NOT NULL,\
+  name character varying(255) NOT NULL,\
+  CONSTRAINT professors_pkey PRIMARY KEY (id))",
+student_professor:
+"CREATE TABLE student_professor (\
+  student_id integer NOT NULL,\
+  professor_id integer NOT NULL)" 
 }
 
 console.log("\nFastLegS - Please enter your MySQL credentials " +
@@ -60,7 +74,10 @@ async.series({
         async.series([
           function(cb) { connection.query(create.posts, cb); },
           function(cb) { connection.query(create.comments, cb); },
-          function(cb) { connection.query(create.comments_post_id_index, cb); }
+          function(cb) { connection.query(create.comments_post_id_index, cb); },
+          function(cb) { connection.query(create.students, cb); },
+          function(cb) { connection.query(create.professors, cb); },
+          function(cb) { connection.query(create.student_professor, cb); }
         ], function(err, results) {
           if (!err) {
             fs.writeFile('.fastlegs_mysql',
