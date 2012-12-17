@@ -324,6 +324,93 @@ outputs:
       ...
     ]
 
+Here's a many-to-many example based on these tables:
+
+### students
+
+| id | name      |
+|----|-----------|
+| 1  | Abe       |
+| 2  | Ben       |
+| 3  | Christine |
+| 4  | Delia     |
+| 5  | Egwene    |
+
+### professors
+
+| id | name   |
+|----|--------|
+| 6  | Felix  |
+| 7  | Garret |
+| 8  | Horton |
+| 9  | Irene  |
+| 10 | Jane   |
+
+### student_professor
+
+| student_id | professor_id |
+|------------|--------------|
+| 1          | 6            |
+| 2          | 6            |
+| 3          | 7            |
+| 4          | 7            |
+| 5          | 8            |
+| 1          | 8            |
+| 2          | 9            |
+| 3          | 9            |
+| 4          | 10           |
+| 5          | 10           |
+
+
+    var Student = FastLegS.Base.extend({
+      tableName: 'students',
+      primaryKey: 'id',
+    });
+
+    var Professor = FastLegS.Base.extend({
+      tableName: 'professors',
+      primaryKey: 'id',
+    })
+
+    var StudentProfessor = FastLegS.Base.extend({
+      tableName: 'student_professor',
+      foreignKeys: [
+         { model: Student, key: 'student_id' },
+         { model: Professor, key: 'professor_id' }
+      ]
+    })
+
+    Student.many = [{
+      professors: Professor,
+      assoc: StudentProfessor
+    }]
+
+    Professor.many = [{
+      students: Student,
+      assoc: StudentProfessor
+    }]
+
+    Professor.findOne(
+      9,
+      {include: { students: {} }},
+      function(err, result) {
+        inspect(result)
+      }
+    )
+
+outputs:
+
+    {
+      id: 9,
+      name: 'Irene',
+      students: [
+          { id: 2, name: 'Ben' },
+          { id: 3, name: 'Christine' }
+      ]
+    }
+
+This shows that ```professor``` Irene has ```students``` Ben and Christine
+
 ##Summary
 
 The tests are an excellent reference for the various modifiers and syntactic 

@@ -9,8 +9,6 @@ var fl = require('../../../FastLegS');
 var async = require('async');
 var _ = require('underscore')
 
-global.inspect = require('eyes').inspector()
-
 /**
  * Logging.
  */
