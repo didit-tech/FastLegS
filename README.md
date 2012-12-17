@@ -424,3 +424,11 @@ versions should abstract out the differences and merge the duplicated code.
 
 Watch for updates to examples in the near future to show features like 
 relationships and advanced queries.
+
+#Contributors
+
+* Micah Silverman ([dogeared](https://github.com/dogeared))
+* Thad Clay ([thadclay](https://github.com/thadclay))
+* Jan Paul Erkelens ([jperkelens](https://github.com/jperkelens))
+* Rob Malko ([malkomalko](https://github.com/malkomalko))
+* Jim Drannbauer ([excellentdrums](https://github.com/excellentdrums))
