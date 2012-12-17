@@ -7,7 +7,9 @@ var helper = require('../test_helper.js');
 var fs = require('fs');
 var fl = require('../../../FastLegS');
 var async = require('async');
-var _ = require('underscore')._;
+var _ = require('underscore')
+
+global.inspect = require('eyes').inspector()
 
 /**
  * Logging.
@@ -35,7 +37,6 @@ _.each(['mysql', 'pg'], function(db) {
   FastLegS.connect(connParams);
 
   var models = helper(FastLegS);
-
 
   describe('Integrates ' + db, function() { 
     before(function(done) {
@@ -433,6 +434,42 @@ _.each(['mysql', 'pg'], function(db) {
         done();
       });
     });
+
+    var validateM2M = function(result) {
+      var studentIds = _.pluck(result.students, 'id')
+      expect(studentIds.length).to.be(2)
+      _.each(studentIds, function(studentId) {
+        found = _.where(
+          models.student_professor, 
+          {student_id: studentId, professor_id: result.id }
+        )
+        expect(found.length).to.be(1)
+      })
+    }
+
+    it('finds many to many', function(done) {
+      models.Professor.find(
+        {},
+        {include: { students: {} }},
+        function(err, results) {
+          _.each(results, function(result) {
+            validateM2M(result)
+          })
+          done()
+        }
+      )
+    })
+
+    it('finds many to many by id', function(done) {
+      models.Professor.findOne(
+        9,
+        {include: { students: {} }},
+        function(err, result) {
+          validateM2M(result)
+          done()
+        }
+      )
+    })
 
     after(function(done) {
       FastLegS.client.disconnect();

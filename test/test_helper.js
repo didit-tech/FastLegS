@@ -77,23 +77,30 @@ module.exports = function(FastLegS) {
   var Student = FastLegS.Base.extend({
     tableName: 'students',
     primaryKey: 'id',
-    many: [
-      { 'professors': Professor, joinOn: 'student_professor.professor_id' }
-     ]
   });
 
   var Professor = FastLegS.Base.extend({
     tableName: 'professors',
     primaryKey: 'id',
-    many: [
-      { 'students': Student, joinOn: 'student_professor.student_id' }
-    ]
   })
 
   var StudentProfessor = FastLegS.Base.extend({
     tableName: 'student_professor',
-    primaryKey: 'professor_id'
+    foreignKeys: [
+       { model: Student, key: 'student_id' },
+       { model: Professor, key: 'professor_id' }
+    ]
   })
+
+  Student.many = [{
+    professors: Professor,
+    assoc: StudentProfessor
+  }]
+
+  Professor.many = [{
+    students: Student,
+    assoc: StudentProfessor
+  }]
 
   return {
     posts: posts,
