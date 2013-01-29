@@ -203,6 +203,8 @@ describe('Select statements pg:', function() {
       .to.be("SELECT * FROM \"model_name\" WHERE field IN ($1);");
     expect(StatementsPg.select(model, { 'field.in': ['some name', 34] }, {}, []))
       .to.be("SELECT * FROM \"model_name\" WHERE field IN ($1,$2);");
+    expect(StatementsPg.select(model, { 'age': 7, 'field.in': ['some name', 34] }, {}, []))
+      .to.be("SELECT * FROM \"model_name\" WHERE age = $1 AND field IN ($2,$3);");
   });
 
   it('not in a list of values (nin, not_in)', function() {
@@ -212,6 +214,8 @@ describe('Select statements pg:', function() {
       .to.be("SELECT * FROM \"model_name\" WHERE field NOT IN ($1,$2);");
     expect(StatementsPg.select(model, { 'field.not_in': ['some name', 34] }, {}, []))
       .to.be("SELECT * FROM \"model_name\" WHERE field NOT IN ($1,$2);");
+    expect(StatementsPg.select(model, { 'age': 7, 'field.not_in': ['some name', 34] }, {}, []))
+      .to.be("SELECT * FROM \"model_name\" WHERE age = $1 AND field NOT IN ($2,$3);");
   });
 
   it('simple or', function() {
