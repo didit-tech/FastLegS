@@ -204,6 +204,8 @@ describe('Select statements mysql:', function() {
       .to.be("SELECT * FROM model_name WHERE field IN (?);");
     expect(StatementsMySQL.select(model, { 'field.in': ['some name', 34] }, {}, []))
       .to.be("SELECT * FROM model_name WHERE field IN (?,?);");
+    expect(StatementsMySQL.select(model, { 'age':7, 'field.in': ['some name', 34] }, {}, []))
+      .to.be("SELECT * FROM model_name WHERE age = ? AND field IN (?,?);");
   });
 
   it('not in a list of values (nin, not_in)', function() {
@@ -213,6 +215,8 @@ describe('Select statements mysql:', function() {
       .to.be("SELECT * FROM model_name WHERE field NOT IN (?,?);");
     expect(StatementsMySQL.select(model, { 'field.not_in': ['some name', 34] }, {}, []))
       .to.be("SELECT * FROM model_name WHERE field NOT IN (?,?);");
+    expect(StatementsMySQL.select(model, { 'age':7, 'field.not_in': ['some name', 34] }, {}, []))
+      .to.be("SELECT * FROM model_name WHERE age = ? AND field NOT IN (?,?);");
   });
 
   it('simple or', function() {
