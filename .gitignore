@@ -1,3 +1,4 @@
 .DS_Store
-.fastlegs
+.fastlegs_pg
+.fastlegs_mysql
 node_modules
