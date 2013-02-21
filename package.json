@@ -13,8 +13,9 @@
     "underscore.string": "2.3.1"
   },
   "devDependencies": { 
-    "mocha": "1.7.4",
     "expect.js": "0.1.2",
+    "eyes": "0.1.7",
+    "mocha": "1.7.4",
     "read": "0.1.0"
   },
   "main": "index",

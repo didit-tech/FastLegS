@@ -19,7 +19,8 @@ var logging = false;
  * Integration test.
  */
 
-_.each(['mysql', 'pg'], function(db) {
+//_.each(['mysql', 'pg'], function(db) {
+_.each(['pg'], function(db) {
   var config = fs.readFileSync(__dirname + '/../../.fastlegs_' + db, 'utf8');
   config = JSON.parse(config);
 
@@ -64,7 +65,7 @@ _.each(['mysql', 'pg'], function(db) {
         model: models.StudentProfessor, data: models.student_professor}],
       function(testItem) {
         it('creates multiple rows in table: ' + testItem.name, function(done) {
-          testItem.model.create(testItem.data, function(err, result) {
+          testItem.model.create(testItem.data, { transaction: true }, function(err, result) {
             expect(err).to.be(null)
             expect(testItem.data.length).to.be(result[countRef])
             done()

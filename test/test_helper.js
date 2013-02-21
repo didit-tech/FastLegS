@@ -1,4 +1,5 @@
 var assert = global.assert = require('assert');
+global.inspect = require('eyes').inspector({ maxLength: 1000000 });
 
 /**
  * Terminate process on uncaught exception
