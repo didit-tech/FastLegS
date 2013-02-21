@@ -35,7 +35,7 @@ var arrayBadField =  [flatBadField];
  * Insert statements test.
  */
 
-describe('Insert statements pg:', function() { 
+describe.only('Insert statements pg:', function() { 
   it('basic with all valid fields', function() { 
     var expected = "INSERT INTO \"model_name\"(index,name) " +
       "VALUES($1,$2) RETURNING *;"
@@ -51,6 +51,13 @@ describe('Insert statements pg:', function() {
 
     expect(StatementsPg.insert(model, flatBadField, [])).to.be(expected);
     expect(StatementsPg.insert(model, arrayBadField, [])).to.be(expected);
+  });
+
+  it('transactions', function() { 
+    var expected = "BEGIN; INSERT INTO \"model_name\"(email,name,age) " +
+      "VALUES($1,$2,$3) RETURNING *; COMMIT;"
+
+    expect(StatementsPg.insert(model, flatBadField, [], { transaction: true })).to.be(expected);
   });
 })
 
