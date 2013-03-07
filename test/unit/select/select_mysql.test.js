@@ -153,6 +153,10 @@ describe('Select statements mysql:', function() {
       .to.be("SELECT * FROM model_name WHERE name <> ?;");
     expect(StatementsMySQL.select(model, { 'name.not': 'awesome sauce' }, {}, []))
       .to.be("SELECT * FROM model_name WHERE name <> ?;");
+    expect(StatementsMySQL.select(model, { 'name.ne': null }, {}, []))
+      .to.be("SELECT * FROM model_name WHERE name IS NOT NULL;");
+    expect(StatementsMySQL.select(model, { 'name.not': null }, {}, []))
+      .to.be("SELECT * FROM model_name WHERE name IS NOT NULL;");
   });
 
   it('greater than (gt)', function() {
