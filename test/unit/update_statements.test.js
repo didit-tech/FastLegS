@@ -4,7 +4,6 @@
 
 var expect = require('expect.js');
 var StatementsPg = require('../../lib/adapters/pg/statements');
-var StatementsMySQL = require('../../lib/adapters/mysql/statements');
 
 /**
  * Model stub.
@@ -53,29 +52,3 @@ describe('Update statements pg:', function() {
   });
 })
 
-describe('Update statements mysql:', function() { 
-  it('basic with all valid fields', function() {
-    var obj = { index: '1234', name: 'Joseph' };
-
-    expect(StatementsMySQL.update(model, { 'age.gt': 15 }, obj, [])).to.be(
-      "UPDATE model_name " +
-      "SET index= ?, name= ? " +
-      "WHERE age > ?;"
-    );
-  });
-
-  it('ignore invalid fields', function() {
-    var obj = {
-      age: 8,
-      bad_field: 'abcdef',
-      name: 'Bob',
-      email: 'bob@email.com'
-    };
-
-    expect(StatementsMySQL.update(model, { 'name': 'Joe' }, obj, [])).to.be(
-      "UPDATE model_name " +
-      "SET age= ?, name= ?, email= ? " +
-      "WHERE name = ?;"
-    );
-  });
-})

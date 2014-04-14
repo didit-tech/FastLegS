@@ -4,7 +4,6 @@
 
 var expect = require('expect.js');
 var StatementsPg = require('../../lib/adapters/pg/statements');
-var StatementsMySQL = require('../../lib/adapters/mysql/statements');
 
 /**
  * Model stub.
@@ -57,33 +56,3 @@ describe('Delete statements pg:', function() {
   });
 })
 
-describe('Delete statements mysql:', function() {
-  it('deletes all rows', function() {
-    expect(StatementsMySQL.destroy(model)).to.be("DELETE FROM model_name;");
-  });
-
-  it('one field for selector', function() {
-    expect(StatementsMySQL.destroy(model, { 'name': 'awesome sauce' }, [])).to.be(
-      "DELETE FROM model_name WHERE name = ?;"
-    );
-  });
-
-  it('multiple fields for selector', function() {
-    expect(StatementsMySQL.destroy(model, { 
-        'name': 'awesome sauce',
-        'email': 'happyman@bluesky.com'
-      }, [])).to.be(
-      "DELETE FROM model_name WHERE name = ? AND email = ?;"
-    );
-  });
-
-  it('ignores invalid fields', function() {
-    expect(StatementsMySQL.destroy(model, {
-        'name': 'awesome sauce',
-        'email': 'happyman@bluesky.com',
-        'bad_field': 1000
-      }, [])).to.be(
-      "DELETE FROM model_name WHERE name = ? AND email = ?;"
-    );
-  });
-})

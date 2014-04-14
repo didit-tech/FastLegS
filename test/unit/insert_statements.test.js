@@ -4,7 +4,6 @@
 
 var expect = require('expect.js');
 var StatementsPg = require('../../lib/adapters/pg/statements');
-var StatementsMySQL = require('../../lib/adapters/mysql/statements');
 
 /**
  * Model stub.
@@ -35,8 +34,8 @@ var arrayBadField =  [flatBadField];
  * Insert statements test.
  */
 
-describe('Insert statements pg:', function() { 
-  it('basic with all valid fields', function() { 
+describe('Insert statements pg:', function() {
+  it('basic with all valid fields', function() {
     var expected = "INSERT INTO \"model_name\"(index,name) " +
       "VALUES($1,$2) RETURNING *;"
 
@@ -44,7 +43,7 @@ describe('Insert statements pg:', function() {
     expect(StatementsPg.insert(model, arrayHappy, [])).to.be(expected);
   })
 
-  
+
   it('ignore invalid fields', function() {
     var expected = "INSERT INTO \"model_name\"(email,name,age) " +
       "VALUES($1,$2,$3) RETURNING *;"
@@ -54,19 +53,3 @@ describe('Insert statements pg:', function() {
   });
 })
 
-describe('Insert statements mysql:', function() { 
-  it('basic with all valid fields', function() { 
-    var expected = "INSERT INTO model_name(index,name) VALUES(?,?);"
-
-    expect(StatementsMySQL.insert(model, flatHappy, [])).to.be(expected);
-    expect(StatementsMySQL.insert(model, arrayHappy, [])).to.be(expected);
-  })
-
-  
-  it('ignore invalid fields', function() {
-    var expected = "INSERT INTO model_name(email,name,age) " +
-      "VALUES(?,?,?);"
-    expect(StatementsMySQL.insert(model, flatBadField, [])).to.be(expected);
-    expect(StatementsMySQL.insert(model, arrayBadField, [])).to.be(expected);
-  });
-})

@@ -21,16 +21,16 @@ var model = {
   ]
 };
 
-describe('Select statements pg:', function() { 
+describe('Select statements pg:', function() {
   it('single primary key', function(done) {
     expect(StatementsPg.select(model, '2345', {}, [])).to.be(
       "SELECT * FROM \"model_name\" WHERE index = '2345';"
     );
-    
+
     done();
   });
 
-  it('multiple primary keys', function() { 
+  it('multiple primary keys', function() {
     expect(StatementsPg.select(model, ['1234', '5678'], {}, [])).to.be(
       "SELECT * FROM \"model_name\" WHERE index IN ($1,$2);"
     );
@@ -41,7 +41,7 @@ describe('Select statements pg:', function() {
       "SELECT * FROM \"model_name\" WHERE name = $1;"
     );
   });
-  
+
   it('multiple fields', function() {
     expect(
       StatementsPg.select(model, {
@@ -228,7 +228,7 @@ describe('Select statements pg:', function() {
   })
 
   it('complex or', function() {
-    expect(StatementsPg.select(model, { 
+    expect(StatementsPg.select(model, {
       'name.equals': 'John',
       '$or': { 'field.equals': 'hi', 'age.equals': 18, 'index.gt': 42 },
       'email.ne': 'josef@yahoo.com'
@@ -237,9 +237,9 @@ describe('Select statements pg:', function() {
   })
 
   it('ignores invalid fields', function() {
-    expect(StatementsPg.select(model, { 
-        'field.in': ['some name', 34], 
-        'bad_field': 1234      
+    expect(StatementsPg.select(model, {
+        'field.in': ['some name', 34],
+        'bad_field': 1234
       }, {}, [])).to.be(
       "SELECT * FROM \"model_name\" WHERE field IN ($1,$2);"
     );
@@ -288,19 +288,19 @@ describe('Select statements pg:', function() {
       "LIMIT 50;"
     );
   });
-  
+
   it('query using null', function() {
     expect(StatementsPg.select(model, { 'name': null }, {}, []))
       .to.be("SELECT * FROM \"model_name\" WHERE name IS NULL;");
   });
-  
+
   it('text search query', function() {
     expect(StatementsPg.select(model, { 'name.textsearch': 'test' }, {}, []))
       .to.be("SELECT * FROM \"model_name\" " +
         "WHERE to_tsvector('english', name) @@ to_tsquery('english', $1);"
     );
   });
-  
+
   it('gets count only with complex or', function() {
     expect(StatementsPg.select(model, {
       'name.equals': 'John',

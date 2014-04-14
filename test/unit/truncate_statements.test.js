@@ -4,7 +4,6 @@
 
 var expect = require('expect.js');
 var StatementsPg = require('../../lib/adapters/pg/statements');
-var StatementsMySQL = require('../../lib/adapters/mysql/statements');
 
 /**
  * Model stub.
@@ -37,13 +36,3 @@ describe('Truncate statements pg:', function() {
   });
 })
 
-describe('Truncate statements mysql:', function() {
-  it('truncates all records', function() {
-    expect(StatementsMySQL.truncate(model)).to.be("TRUNCATE model_name;");
-  });
-
-  it('passes cascading option', function() {
-    expect(StatementsMySQL.truncate(model, { cascade: true })).to.be(
-      "TRUNCATE model_name;");
-  });
-})
