@@ -19,8 +19,7 @@ var logging = false;
  * Integration test.
  */
 
-_.each(['mysql', 'pg'], function(db) {
-  var config = fs.readFileSync(__dirname + '/../../.fastlegs_' + db, 'utf8');
+  var config = fs.readFileSync(__dirname + '/../../.fastlegs_' + 'pg', 'utf8');
   config = JSON.parse(config);
 
   var connParams = {
@@ -31,12 +30,12 @@ _.each(['mysql', 'pg'], function(db) {
     , port:     config.port
   };
 
-  var FastLegS = new fl(db);
+  var FastLegS = new fl('pg');
   FastLegS.connect(connParams);
 
   var models = helper(FastLegS);
 
-  describe('Integrates ' + db, function() { 
+  describe('Integrates pg', function() {
     before(function(done) {
       async.parallel([
         function(next) { models.Post.truncate(next) },
@@ -53,14 +52,14 @@ _.each(['mysql', 'pg'], function(db) {
     // Micah - THIS is a smell. we should have FastLegS return the same
     // structure regardless of the underlying database. Right now, we
     // are just passing through whatever is returned from the underlying
-    // query.    
-    var countRef = { pg: 'rowCount', mysql: 'affectedRows' }[db]
+    // query.
+    var countRef = { pg: 'rowCount' }['pg']
     _.each([
       {name: 'posts', model: models.Post, data: models.posts},
       {name: 'comments', model: models.Comment, data: models.comments},
       {name: 'students', model: models.Student, data: models.students},
       {name: 'professors', model: models.Professor, data: models.professors},
-      {name: 'student_professors', 
+      {name: 'student_professors',
         model: models.StudentProfessor, data: models.student_professor}],
       function(testItem) {
         it('creates multiple rows in table: ' + testItem.name, function(done) {
@@ -79,28 +78,28 @@ _.each(['mysql', 'pg'], function(db) {
         done();
       });
     });
-    
+
     it('find a post and only return certain fields', function(done) {
       models.Post.find(models.posts[1].id, { only: ['id'] }, function(err, results) {
-        expect(results.title).to.be(undefined);     
+        expect(results.title).to.be(undefined);
         done();
       });
     });
-    
+
     it('find a comment by primary key', function(done) {
       models.Comment.find(models.comments[0].id, function(err, results) {
         expect(models.comments[0].comment).to.be(results.comment);
         done();
       });
     });
-    
+
     it('find a comment and only return certain fields', function(done) {
       models.Comment.find(models.comments[1].id, { only: ['id'] }, function(err, results) {
         expect(results.comment).to.be(undefined);
         done();
       });
     });
-    
+
     it('find a post with a basic include(join)', function(done) {
       models.Post.find(models.posts[0].id, {
         include: {
@@ -111,7 +110,7 @@ _.each(['mysql', 'pg'], function(db) {
         done();
       })
     });
-    
+
     it('find a post with advanced include(join) opts', function(done) {
       models.Post.find({ 'blurb.ilike': '%Some blurb%' }, {
         only: ['id', 'blurb'],
@@ -127,7 +126,7 @@ _.each(['mysql', 'pg'], function(db) {
         done();
       });
     });
-    
+
     it('multiple comments by id', function(done) {
       var ids = _.pluck(models.comments, 'id');
       models.Comment.find(ids, function(err, results) {
@@ -135,7 +134,7 @@ _.each(['mysql', 'pg'], function(db) {
         done();
       })
     });
-    
+
     it('properly ignores unknown columns', function(done) {
       models.Post.find({ 'body': 'Some body 2' }, {
         only: ['id', 'bad_field']
@@ -144,7 +143,7 @@ _.each(['mysql', 'pg'], function(db) {
         done();
       })
     });
-    
+
     it('ignores all unknown columns returning everything', function(done) {
       models.Post.find({ 'id': 1 }, {
         only: ['bad_field']
@@ -171,7 +170,7 @@ _.each(['mysql', 'pg'], function(db) {
         done();
       });
     });
-    
+
     it('find using in clause with multiple items', function(done) {
       models.Post.find({
         'title.in': ['Some Title 1', 'Some Title 2']
@@ -296,7 +295,7 @@ _.each(['mysql', 'pg'], function(db) {
         done();
       })
     });
-    
+
     it('find with order and offset', function(done) {
       models.Post.find({}, {
         only: ['id'],
@@ -438,7 +437,7 @@ _.each(['mysql', 'pg'], function(db) {
       expect(studentIds.length).to.be(2)
       _.each(studentIds, function(studentId) {
         found = _.where(
-          models.student_professor, 
+          models.student_professor,
           {student_id: studentId, professor_id: result.id }
         )
         expect(found.length).to.be(1)
@@ -468,5 +467,4 @@ _.each(['mysql', 'pg'], function(db) {
       done();
     });
   })
-})
 

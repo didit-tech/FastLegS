@@ -8,7 +8,6 @@ test: setup test-unit test-integration
 
 setup:
 	@[ -e ".fastlegs_pg" ] || node test/bootstrap/init_pg.js
-	@[ -e ".fastlegs_mysql" ] || node test/bootstrap/init_mysql.js
 
 test-unit:
 	@NODE_ENV=test ./node_modules/.bin/mocha \

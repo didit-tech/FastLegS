@@ -1,7 +1,7 @@
-var fs = require('fs')
-  , async = require("async")
-  , pg = require("pg")
-  , read = require('read')
+var fs = require('fs');
+var async = require('async');
+var pg = require('pg');
+var read = require('read');
 
 var create = {
 posts:
