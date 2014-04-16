@@ -3,7 +3,7 @@
  */
 
 var expect = require('expect.js');
-var StatementsPg = require('../../lib/statements');
+var Statements = require('../../lib/statements');
 
 /**
  * Model stub.
@@ -39,8 +39,8 @@ describe('Insert statements pg:', function() {
     var expected = "INSERT INTO \"model_name\"(index,name) " +
       "VALUES($1,$2) RETURNING *;"
 
-    expect(StatementsPg.insert(model, flatHappy, [])).to.be(expected);
-    expect(StatementsPg.insert(model, arrayHappy, [])).to.be(expected);
+    expect(Statements.insert(model, flatHappy, [])).to.be(expected);
+    expect(Statements.insert(model, arrayHappy, [])).to.be(expected);
   })
 
 
@@ -48,8 +48,8 @@ describe('Insert statements pg:', function() {
     var expected = "INSERT INTO \"model_name\"(email,name,age) " +
       "VALUES($1,$2,$3) RETURNING *;"
 
-    expect(StatementsPg.insert(model, flatBadField, [])).to.be(expected);
-    expect(StatementsPg.insert(model, arrayBadField, [])).to.be(expected);
+    expect(Statements.insert(model, flatBadField, [])).to.be(expected);
+    expect(Statements.insert(model, arrayBadField, [])).to.be(expected);
   });
 })
 

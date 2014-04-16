@@ -5,10 +5,9 @@
 var expect = require('expect.js');
 var helper = require('../test_helper.js');
 var fs = require('fs');
-var FastLegS = require('../../../FastLegS');
+var FastLegS = require('../../');
 var async = require('async');
-var _ = require('underscore')
-global.inspect = require('eyes').inspector({ maxLength: 1000000 });
+var _ = require('lodash')
 
 /**
  * Logging.

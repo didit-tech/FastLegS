@@ -3,7 +3,7 @@
  */
 
 var expect = require('expect.js');
-var StatementsPg = require('../../lib/statements');
+var Statements = require('../../lib/statements');
 
 /**
  * Model stub.
@@ -27,17 +27,17 @@ var model = {
 
 describe('Delete statements pg:', function() {
   it('deletes all rows', function() {
-    expect(StatementsPg.destroy(model)).to.be("DELETE FROM \"model_name\";");
+    expect(Statements.destroy(model)).to.be("DELETE FROM \"model_name\";");
   });
 
   it('one field for selector', function() {
-    expect(StatementsPg.destroy(model, { 'name': 'awesome sauce' }, [])).to.be(
+    expect(Statements.destroy(model, { 'name': 'awesome sauce' }, [])).to.be(
       "DELETE FROM \"model_name\" WHERE name = $1;"
     );
   });
 
   it('multiple fields for selector', function() {
-    expect(StatementsPg.destroy(model, { 
+    expect(Statements.destroy(model, { 
         'name': 'awesome sauce',
         'email': 'happyman@bluesky.com'
       }, [])).to.be(
@@ -46,7 +46,7 @@ describe('Delete statements pg:', function() {
   });
 
   it('ignores invalid fields', function() {
-    expect(StatementsPg.destroy(model, {
+    expect(Statements.destroy(model, {
         'name': 'awesome sauce',
         'email': 'happyman@bluesky.com',
         'bad_field': 1000
