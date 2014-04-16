@@ -3,7 +3,7 @@
  */
 
 var expect = require('expect.js');
-var StatementsPg = require('../../lib/adapters/pg/statements');
+var StatementsPg = require('../../lib/statements');
 
 /**
  * Model stub.
@@ -25,7 +25,7 @@ var model = {
  * Update statements test.
  */
 
-describe('Update statements pg:', function() { 
+describe('Update statements:', function() { 
   it('basic with all valid fields', function() {
     var obj = { index: '1234', name: 'Joseph' };
 

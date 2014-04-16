@@ -3,7 +3,7 @@
  */
 
 var expect = require('expect.js');
-var StatementsPg = require('../../../lib/adapters/pg/statements');
+var StatementsPg = require('../../../lib/statements');
 
 /**
  * select pg test.
@@ -21,7 +21,7 @@ var model = {
   ]
 };
 
-describe('Select statements pg:', function() {
+describe('Select statements:', function() {
   it('single primary key', function(done) {
     expect(StatementsPg.select(model, '2345', {}, [])).to.be(
       "SELECT * FROM \"model_name\" WHERE index = '2345';"

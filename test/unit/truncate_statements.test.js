@@ -3,7 +3,7 @@
  */
 
 var expect = require('expect.js');
-var StatementsPg = require('../../lib/adapters/pg/statements');
+var StatementsPg = require('../../lib/statements');
 
 /**
  * Model stub.
@@ -25,7 +25,7 @@ var model = {
  * Truncate statements test.
  */
 
-describe('Truncate statements pg:', function() {
+describe('Truncate statements:', function() {
   it('truncates all records', function() {
     expect(StatementsPg.truncate(model)).to.be("TRUNCATE \"model_name\";");
   });

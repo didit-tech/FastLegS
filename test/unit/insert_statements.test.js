@@ -3,7 +3,7 @@
  */
 
 var expect = require('expect.js');
-var StatementsPg = require('../../lib/adapters/pg/statements');
+var StatementsPg = require('../../lib/statements');
 
 /**
  * Model stub.

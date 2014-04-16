@@ -3,4 +3,3 @@
 --growl
 --timeout 300
 --slow 100
---ignore-leaks
