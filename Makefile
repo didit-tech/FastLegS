@@ -7,7 +7,7 @@ integration_files=`find test/integration -name '$(file)' -type f -print0 | xargs
 test: setup test-unit test-integration
 
 setup:
-	@[ -e ".fastlegs_pg" ] || node test/bootstrap/init_pg.js
+	@[ -e ".fastlegs" ] || node test/bootstrap/init.js
 
 test-unit:
 	@NODE_ENV=test ./node_modules/.bin/mocha \

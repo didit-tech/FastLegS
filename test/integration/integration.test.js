@@ -19,7 +19,7 @@ var logging = false;
  * Integration test.
  */
 
-var config = fs.readFileSync(__dirname + '/../../.fastlegs_pg', 'utf8');
+var config = fs.readFileSync(__dirname + '/../../.fastlegs', 'utf8');
 config = JSON.parse(config);
 
 var connParams = {

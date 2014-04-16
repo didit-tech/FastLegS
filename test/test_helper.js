@@ -5,10 +5,10 @@ var inspect = require('eyes').inspector({ maxLength: 1000000 });
  * Terminate process on uncaught exception
  */
 
-//process.on('uncaughtException', function(err) {
-//  console.dir(err);
-//  process.exit(1);
-//});
+process.on('uncaughtException', function(err) {
+  console.dir(err);
+  process.exit(1);
+});
 
 module.exports = function(FastLegS) {
   var posts = [

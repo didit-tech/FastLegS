@@ -39,7 +39,7 @@ professors:
 student_professor:
 "CREATE TABLE student_professor (\
   student_id integer NOT NULL,\
-  professor_id integer NOT NULL)" 
+  professor_id integer NOT NULL)"
 };
 
 console.log("\nFastLegS - Please enter your Postgres credentials " +
@@ -63,7 +63,8 @@ async.series({
     read({ prompt: "pg port: ", default: 5432 }, cb)
   },
 }, function(err, config) {
-  var connectionString =  
+  console.dir(err); console.dir(config);
+  var connectionString =
     "pg://" + config.username + ((config.password)?(":" + config.password):"") +
     "@" + config.host + ":" + config.port + "/";
   pg.connect(connectionString + "template1", function(err, client) {
@@ -84,7 +85,7 @@ async.series({
                   function(cb) { client.query(create.student_professor, cb); }
                 ], function(err, results) {
                   if (!err) {
-                    fs.writeFile('.fastlegs_pg',
+                    fs.writeFile('.fastlegs',
                       JSON.stringify(config),
                     function (err) {
                       client.end();
