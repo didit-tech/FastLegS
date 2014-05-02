@@ -30,6 +30,7 @@ students:
 "CREATE TABLE students (\
   id integer NOT NULL,\
   name character varying(255) NOT NULL,\
+  stats json,\
   CONSTRAINT students_pkey PRIMARY KEY (id))",
 professors:
 "CREATE TABLE professors (\

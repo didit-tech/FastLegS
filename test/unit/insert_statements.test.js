@@ -17,7 +17,8 @@ var model = {
     { 'column_name': 'name' },
     { 'column_name': 'email' },
     { 'column_name': 'age' },
-    { 'column_name': 'field' }
+    { 'column_name': 'field' },
+    { 'column_name': 'stats' }
   ]
 };
 
@@ -25,7 +26,7 @@ var model = {
  * Fixtures
  */
 
-var flatHappy = { index: '1234', name: 'Joseph' };
+var flatHappy = { index: '1234', name: 'Joseph', stats: { height: 5.4, weight: 100 } };
 var flatBadField = { bad_field: 'abcdef', email: 'bob@email.com', name: 'Bob', age: 8 };
 var arrayHappy = [flatHappy];
 var arrayBadField =  [flatBadField];
@@ -36,8 +37,8 @@ var arrayBadField =  [flatBadField];
 
 describe('Insert statements pg:', function() {
   it('basic with all valid fields', function() {
-    var expected = "INSERT INTO \"model_name\"(index,name) " +
-      "VALUES($1,$2) RETURNING *;"
+    var expected = "INSERT INTO \"model_name\"(index,name,stats) " +
+      "VALUES($1,$2,$3) RETURNING *;"
 
     expect(Statements.insert(model, flatHappy, [])).to.be(expected);
     expect(Statements.insert(model, arrayHappy, [])).to.be(expected);
