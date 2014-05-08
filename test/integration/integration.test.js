@@ -61,7 +61,7 @@ describe('Integrates pg', function() {
     }
   ], function(testItem) {
     it('creates multiple rows in table: ' + testItem.name, function(done) {
-      testItem.model.create(testItem.data, function(err, result) {
+      testItem.model.create(testItem.data, function(err, rows, result) {
         expect(err).to.be(null);
         expect(testItem.data.length).to.be(result.rowCount);
         done();

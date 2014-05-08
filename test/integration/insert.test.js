@@ -39,14 +39,14 @@ describe('Inserts', function() {
     { id: 3, name: 'Jack', stats: { height: 6, weight: 185 } },
   ];
   beforeEach(function(done) {
-    Student.truncate(function(err, result) {
+    Student.truncate(function(err, rows, result) {
       expect(err).to.be(null);
       done();
     });
   });
 
   it('creates one row in table students', function(done) {
-    Student.create(data[0], function(err, result) {
+    Student.create(data[0], function(err, rows, result) {
       expect(err).to.be(null);
       expect(result.rowCount).to.be(1);
       done()
@@ -54,7 +54,7 @@ describe('Inserts', function() {
   });
 
   it('creates multiple rows in table students', function(done) {
-    Student.create(data, function(err, result) {
+    Student.create(data, function(err, rows, result) {
       expect(err).to.be(null);
       expect(result.rowCount).to.be(data.length);
       done()
