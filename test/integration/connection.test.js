@@ -8,7 +8,7 @@ var Client = require('../../lib/client');
 describe('connection', function() {
   it('surfaces error in the callback when pool pg connection fails', function(done) {
     var client = new Client({});
-    client.connect(true);
+    client.connect({ pool: true });
     client.query('Select now();', function(err, result) {
       expect(err).to.not.be.null;
       done();

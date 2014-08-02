@@ -31,7 +31,7 @@ var connParams = {
 };
 
 var fl = FastLegS(connParams);
-fl.connect();
+fl.connect({ pool: true });
 
 var models = helper(fl);
 

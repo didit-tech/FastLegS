@@ -25,7 +25,7 @@ var connParams = {
 };
 
 var fl = FastLegS(connParams);
-fl.connect();
+fl.connect({ pool: true });
 
 var Student = fl.Base.extend({
   tableName: 'students',
@@ -40,9 +40,17 @@ describe('Inserts', function() {
   ];
   beforeEach(function(done) {
     Student.truncate(function(err, rows, result) {
+      console.dir(err);
       expect(err).to.be(null);
       done();
     });
+  });
+
+  after(function(done) {
+    //console.log('HEY NOW');
+    //console.dir(fl.disconnect);
+    //fl.disconnect();
+    done();
   });
 
   it('creates one row in table students', function(done) {
