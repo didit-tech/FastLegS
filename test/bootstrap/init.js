@@ -1,6 +1,6 @@
 var fs = require('fs');
 var async = require('async');
-var pg = require('pg');
+var pg = require('pg.js');
 var read = require('read');
 
 var create = {

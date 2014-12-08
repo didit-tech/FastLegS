@@ -10,17 +10,18 @@
   "author": "Didit Tech <development@didit.com>",
   "homepage": "https://github.com/didit-tech/FastLegS",
   "dependencies": {
-    "async": "^0.7.0",
-    "pg-query": "^0.8.0",
-    "pg.js": "^3.0.4",
-    "underscore": "^1.6.0",
-    "underscore.string": "^2.3.3"
+    "async": "~0.7.0",
+    "pg-query": "~0.8.0",
+    "pg.js": "~3.0.4",
+    "underscore": "~1.6.0",
+    "underscore.string": "~2.3.3"
   },
   "devDependencies": {
-    "expect.js": "^0.3.1",
-    "eyes": "^0.1.8",
-    "mocha": "^1.18.2",
-    "read": "^0.1.0"
+    "expect.js": "~0.3.1",
+    "eyes": "~0.1.8",
+    "lodash": "~2.4.1",
+    "mocha": "~1.18.2",
+    "read": "~0.1.0"
   },
   "main": "index",
   "scripts": {
@@ -36,4 +37,3 @@
     }
   ]
 }
-
