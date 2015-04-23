@@ -12,7 +12,7 @@
   "dependencies": {
     "async": "~0.7.0",
     "pg-query": "~0.8.0",
-    "pg.js": "~3.6.2",
+    "pg": "~3.6.3",
     "underscore": "~1.6.0",
     "underscore.string": "~2.3.3"
   },
