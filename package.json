@@ -11,8 +11,8 @@
   "homepage": "https://github.com/didit-tech/FastLegS",
   "dependencies": {
     "async": "~0.7.0",
+    "pg": "~4.5.6",
     "pg-query": "~0.8.0",
-    "pg": "~3.6.3",
     "underscore": "~1.6.0",
     "underscore.string": "~2.3.3"
   },
@@ -25,7 +25,7 @@
   },
   "main": "index",
   "scripts": {
-    "test": "make test-unit"
+    "test": "make test"
   },
   "engines": {
     "node": ">= 0.10.0 < 0.11.0"
