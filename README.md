@@ -1,13 +1,13 @@
 [![Build Status](https://secure.travis-ci.org/didit-tech/FastLegS.png)](http://travis-ci.org/didit-tech/FastLegS)
-#FastLegS
+# FastLegS
 
 PostgreSQL ORM on top of node-postgres.
 
-##Installation
+## Installation
 
     npm install FastLegS
 
-##Quickstart
+## Quickstart
 
 **NOTE:** As of version```0.2.0```, both PostgreSQL and MySQL are supported. 
 You indicate which database you are using at object instantiation time. All 
@@ -73,7 +73,7 @@ other operations and interfaces behave the same as older versions.
       }
     );
 
-#The Full Monty
+# The Full Monty
 
 The following examples use these database tables as examples:
 
@@ -130,7 +130,7 @@ Given this setup:
 
 The following are examples of basic CRUD operations:
 
-##Create
+## Create
 
 Calls to ```create``` can take an object or an array of objects.
 
@@ -172,12 +172,12 @@ In the case of MySQL, the ```results``` will be an object of the form:
       message: ''
     }
 
-##Read
+## Read
 
 The various forms of the ```find``` command are very flexible. We'll present a 
 few of them here.
 
-####All:
+#### All:
 
     Post.find({}, callback)
 
@@ -215,7 +215,7 @@ outputs:
         updated_at: null } 
     ]
 
-####By primary key:
+#### By primary key:
 
     Post.find(6, callback)
 
@@ -231,7 +231,7 @@ outputs:
       updated_at: null
     }
 
-####Only show some fields:
+#### Only show some fields:
 
     Post.find(6, {only: ['id','title']}, callback)
 
@@ -239,19 +239,19 @@ outputs:
 
     { id: 6, title: 'Some Title 6' }
 
-####Some clauses:
+#### Some clauses:
 
     Post.find({'title.like': 'Some%'}, callback)
     Post.find({'id.in': [6, 7]}, callback)
     Post.find({'id.nin': [6]}, callback)
     Post.find({'$or': {'id.equals': 5, 'body.like': '%body 7'}}, callback)
 
-####Order, offset, limit
+#### Order, offset, limit
 
     Post.find({}, { order: ['-id'] }, callback)
     Post.find({}, { offset: 1, limit: 1 }, callback)
 
-####Count:
+#### Count:
 
     Post.find({}, {count: true}, callback)
 
@@ -259,7 +259,7 @@ outputs:
 
     { count: 7 }
 
-##Update
+## Update
 
     Post.update(
       { title: 'Some Title 6' },
@@ -267,12 +267,12 @@ outputs:
       callback
     )
 
-##Delete
+## Delete
 
     Post.destroy({ 'id.in': [5, 7]}, callback)
     Post.truncate(callback)
 
-##A Taste of Relationships
+## A Taste of Relationships
 
 You can call out relationships when you extend FastLegS.Base:
 
@@ -411,12 +411,12 @@ outputs:
 
 This shows that ```professor``` Irene has ```students``` Ben and Christine
 
-##Summary
+## Summary
 
 The tests are an excellent reference for the various modifiers and syntactic 
 sugar you can use in FastLegS.
 
-##ToDo
+## ToDo
 
 Right now, the codebase is split because of syntactic differences between 
 PostgreSQL and MySQL. There is a lot of duplicated code, however. Future 
@@ -425,7 +425,7 @@ versions should abstract out the differences and merge the duplicated code.
 Watch for updates to examples in the near future to show features like 
 relationships and advanced queries.
 
-#Contributors
+# Contributors
 
 * Micah Silverman ([dogeared](https://github.com/dogeared))
 * Thad Clay ([thadclay](https://github.com/thadclay))
